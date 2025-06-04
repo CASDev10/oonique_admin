@@ -90,6 +90,10 @@ flutter:
     - lib/modules/main/screens/banners/models/
     - lib/modules/main/screens/banners/widgets/
     - lib/modules/main/screens/banners/repositories/
+    - lib/modules/main/screens/support/
+    - lib/modules/main/screens/support/pages/
+    - lib/modules/main/screens/support/models/
+    - lib/modules/main/screens/support/repository/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

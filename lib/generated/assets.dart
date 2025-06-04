@@ -2,6 +2,10 @@
 class Assets {
   Assets._();
 
+  static const String addUpdateBannerCubitAddUpdateBannerCubit =
+      'lib/modules/main/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
+  static const String addUpdateBannerCubitAddUpdateBannerState =
+      'lib/modules/main/screens/banners/cubit/add_update_banner_cubit/add_update_banner_state.dart';
   static const String appAppBlocObserver = 'lib/app/app_bloc_observer.dart';
   static const String appAppCubit = 'lib/app/app_cubit.dart';
   static const String appAppState = 'lib/app/app_state.dart';
@@ -44,6 +48,10 @@ class Assets {
       'lib/modules/authentication/login/cubit/login_cubit.dart';
   static const String cubitLoginState =
       'lib/modules/authentication/login/cubit/login_state.dart';
+  static const String cubitsSupportCubits =
+      'lib/modules/main/screens/support/cubits/support_cubits.dart';
+  static const String cubitsSupportState =
+      'lib/modules/main/screens/support/cubits/support_state.dart';
   static const String diServiceLocator = 'lib/core/di/service_locator.dart';
   static const String dialogsConfirmationDialog =
       'lib/ui/dialogs/confirmation_dialog.dart';
@@ -116,6 +124,8 @@ class Assets {
       'lib/modules/main/screens/banners/models/get_banners_response.dart';
   static const String modelsLoginInputModel =
       'lib/modules/authentication/models/login_input_model.dart';
+  static const String modelsUpdateSupportResponse =
+      'lib/modules/main/screens/support/models/update_support_response.dart';
   static const String modelsUploadFileInput =
       'lib/modules/main/screens/banners/models/upload_file_input.dart';
   static const String networkDioClient = 'lib/core/network/dio_client.dart';
@@ -162,6 +172,8 @@ class Assets {
       'lib/modules/main/screens/banners/repositories/repo.dart';
   static const String repositoriesSessionRepository =
       'lib/modules/authentication/repositories/session_repository.dart';
+  static const String repositorySupportRepository =
+      'lib/modules/main/screens/support/repository/support_repository.dart';
   static const String routesAppRoutes = 'lib/config/routes/app_routes.dart';
   static const String routesNavRouter = 'lib/config/routes/nav_router.dart';
   static const String screensLoginDesktop =
@@ -213,6 +225,10 @@ class Assets {
       'assets/images/svg/splash_background.svg';
   static const String themesDarkTheme = 'lib/config/themes/dark_theme.dart';
   static const String themesLightTheme = 'lib/config/themes/light_theme.dart';
+  static const String updateTicketUpdateTicketCubit =
+      'lib/modules/main/screens/support/cubits/update_ticket/update_ticket_cubit.dart';
+  static const String updateTicketUpdateTicketState =
+      'lib/modules/main/screens/support/cubits/update_ticket/update_ticket_state.dart';
   static const String urlsUrls = 'lib/utils/urls/urls.dart';
   static const String utilsDebouncer = 'lib/utils/debouncer.dart';
   static const String utilsImageClipper = 'lib/utils/image_clipper.dart';

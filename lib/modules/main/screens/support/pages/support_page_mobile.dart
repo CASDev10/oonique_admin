@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oonique/modules/main/screens/support/models/all_support_response.dart';
 import 'package:oonique/utils/extensions/extended_context.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
+import '../../../../../core/di/service_locator.dart';
 import '../../../../../ui/widgets/custom_dropdown.dart';
 import '../../../../../ui/widgets/helper_function.dart';
+import '../../../../../ui/widgets/loading_indicator.dart';
+import '../cubits/support_cubits.dart';
+import '../repository/support_repository.dart';
 
 class SupportPageMobile extends StatelessWidget {
   const SupportPageMobile({super.key, required this.size});
   final Size size;
   @override
   Widget build(BuildContext context) {
-    return SupportPageMobileView(size: size);
+    return BlocProvider(
+      create:
+          (context) =>
+              SupportsTicketCubit(supportRepository: sl<SupportRepository>())
+                ..getAllTickets(),
+      child: SupportPageMobileView(size: size),
+    );
   }
 }
 
@@ -27,19 +38,29 @@ class _SupportPageMobileViewState extends State<SupportPageMobileView> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Tickets Management", style: context.textTheme.headlineLarge),
-          SizedBox(height: 16.0),
-          Expanded(
-            child: PaginatedTicketsTable(
-              tickets: [],
-              size: widget.size,
-              totalItems: 1000,
-            ),
-          ),
-        ],
+      child: BlocBuilder<SupportsTicketCubit, SupportsTicketState>(
+        builder: (context, state) {
+          if (state.bannersState == SupportsTicketStatus.loading) {
+            return Center(child: LoadingIndicator());
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Tickets Management",
+                style: context.textTheme.headlineLarge,
+              ),
+              SizedBox(height: 16.0),
+              Expanded(
+                child: PaginatedTicketsTable(
+                  tickets: state.tickets,
+                  size: widget.size,
+                  totalItems: 1000,
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -229,38 +250,24 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
       //   },
       // ),
     ];
-    allRows = List.generate(1000, (index) {
-      return PlutoRow(
-        cells: {
-          'id': PlutoCell(value: index + 1),
-          'userId': PlutoCell(value: index + 100),
-          'firstName': PlutoCell(value: 'First$index'),
-          'lastName': PlutoCell(value: 'Last$index'),
-          'email': PlutoCell(value: 'user$index@example.com'),
-          'subject': PlutoCell(value: 'Subject of ticket $index'),
-          'status': PlutoCell(value: index % 2 == 0 ? 'Open' : 'Closed'),
-          "attachments": PlutoCell(value: "3"),
-          "message": PlutoCell(value: 'Message of ticket $index'),
-          'actions': PlutoCell(value: "Zohaib"),
-        },
-      );
-    });
-    // allRows =
-    //     widget.tickets.map((ticket) {
-    //       return PlutoRow(
-    //         cells: {
-    //           'id': PlutoCell(value: ticket.id),
-    //           "userId": PlutoCell(value: ticket.id),
-    //           "firstName": PlutoCell(value: ticket.firstName),
-    //           "lastName": PlutoCell(value: ticket.lastName),
-    //           "email": PlutoCell(value: ticket.email),
-    //           "subject": PlutoCell(value: ticket.subject),
-    //           "status": PlutoCell(value: ticket.status),
-    //           "attachments": PlutoCell(value: ticket.images.length.toString()),
-    //           'actions': PlutoCell(value: ticket),
-    //         },
-    //       );
-    //     }).toList();
+
+    allRows =
+        widget.tickets.map((ticket) {
+          return PlutoRow(
+            cells: {
+              'id': PlutoCell(value: ticket.id),
+              "userId": PlutoCell(value: ticket.id),
+              "message": PlutoCell(value: ticket.message),
+              "firstName": PlutoCell(value: ticket.firstName),
+              "lastName": PlutoCell(value: ticket.lastName),
+              "email": PlutoCell(value: ticket.email),
+              "subject": PlutoCell(value: ticket.subject),
+              "status": PlutoCell(value: ticket.status),
+              "attachments": PlutoCell(value: ticket.images.length.toString()),
+              'actions': PlutoCell(value: ticket),
+            },
+          );
+        }).toList();
   }
 
   void _updateGridRows() {
@@ -277,39 +284,23 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
 
   @override
   Widget build(BuildContext context) {
-    // allRows =
-    //     widget.tickets.map((ticket) {
-    //       return PlutoRow(
-    //         cells: {
-    //           'id': PlutoCell(value: ticket.id),
-    //           "userId": PlutoCell(value: ticket.id),
-    //           "firstName": PlutoCell(value: ticket.firstName),
-    //           "lastName": PlutoCell(value: ticket.lastName),
-    //           "email": PlutoCell(value: ticket.email),
-    //           "subject": PlutoCell(value: ticket.subject),
-    //           "status": PlutoCell(value: ticket.status),
-    //           "attachments": PlutoCell(value: ticket.images.length.toString()),
-    //           'actions': PlutoCell(value: ticket),
-    //         },
-    //       );
-    //     }).toList();
-
-    allRows = List.generate(1000, (index) {
-      return PlutoRow(
-        cells: {
-          'id': PlutoCell(value: index + 1),
-          'userId': PlutoCell(value: index + 100),
-          'firstName': PlutoCell(value: 'First$index'),
-          'lastName': PlutoCell(value: 'Last$index'),
-          'email': PlutoCell(value: 'user$index@example.com'),
-          'subject': PlutoCell(value: 'Subject of ticket $index'),
-          'status': PlutoCell(value: index % 2 == 0 ? 'Open' : 'Closed'),
-          "attachments": PlutoCell(value: "3"),
-          "message": PlutoCell(value: 'Message of ticket $index'),
-          'actions': PlutoCell(value: "Zohaib"),
-        },
-      );
-    });
+    allRows =
+        widget.tickets.map((ticket) {
+          return PlutoRow(
+            cells: {
+              "message": PlutoCell(value: ticket.message),
+              'id': PlutoCell(value: ticket.id),
+              "userId": PlutoCell(value: ticket.id),
+              "firstName": PlutoCell(value: ticket.firstName),
+              "lastName": PlutoCell(value: ticket.lastName),
+              "email": PlutoCell(value: ticket.email),
+              "subject": PlutoCell(value: ticket.subject),
+              "status": PlutoCell(value: ticket.status),
+              "attachments": PlutoCell(value: ticket.images.length.toString()),
+              'actions': PlutoCell(value: ticket),
+            },
+          );
+        }).toList();
 
     return Scaffold(
       body: Column(

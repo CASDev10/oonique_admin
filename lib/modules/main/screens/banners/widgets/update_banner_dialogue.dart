@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:oonique/constants/api_endpoints.dart';
 import 'package:oonique/modules/main/screens/banners/models/add_banner_input.dart';
 import 'package:oonique/modules/main/screens/banners/models/get_banners_response.dart';
-import 'package:oonique/modules/main/screens/banners/repositories/repo.dart';
 import 'package:oonique/ui/input/input_field.dart';
 import 'package:oonique/ui/widgets/custom_dropdown.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
@@ -13,12 +13,12 @@ import 'package:oonique/ui/widgets/primary_button.dart';
 import 'package:oonique/utils/extensions/extended_context.dart';
 
 import '../../../../../config/routes/nav_router.dart';
-import '../../../../../core/di/service_locator.dart';
 import '../../../../../generated/assets.dart';
 
 class UpdateBannerDialogue extends StatefulWidget {
-  const UpdateBannerDialogue({super.key, this.model});
+  const UpdateBannerDialogue({super.key, this.model, required this.onSave});
   final BannersModel? model;
+  final Function(AddBannerInput) onSave;
 
   @override
   State<UpdateBannerDialogue> createState() => _UpdateBannerDialogueState();
@@ -249,17 +249,17 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                         input.file = MultipartFile.fromBytes(
                           fileBytes!,
                           filename: "image.png",
+                          contentType: MediaType(
+                            "image",
+                            "png",
+                          ), // <-- correct way to specify contentType
                         );
-                        print(input.file!.filename);
                       }
                       if (bannerId != null) {
                         input.id = bannerId;
                       }
-                      print(input.toJson());
 
-                      BannersRepository _repo = sl<BannersRepository>();
-
-                      await _repo.addUpdateBanner(input);
+                      widget.onSave(input);
                     },
                     title: widget.model != null ? "Update" : "Save",
                   ),

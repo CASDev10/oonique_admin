@@ -24,6 +24,7 @@ class AuthRepository {
   Future<AuthResponse> login(LoginInput loginInput) async {
     try {
       var response = await _dioClient.post(
+        options: Options(receiveTimeout: Duration(minutes: 10)),
         Endpoints.login,
         data: loginInput.toJson(),
       );
