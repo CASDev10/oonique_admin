@@ -38,10 +38,10 @@ class LoginDesktopView extends StatefulWidget {
 
 class _LoginDesktopViewState extends State<LoginDesktopView> {
   TextEditingController emailController = TextEditingController(
-    // text: "admin@oonique.com",
+    text: "admin@oonique.com",
   );
   TextEditingController passwordController = TextEditingController(
-    // text: "11223344",
+    text: "11223344",
   );
 
   final _formKey = GlobalKey<FormState>();
@@ -165,23 +165,6 @@ class _LoginDesktopViewState extends State<LoginDesktopView> {
                         SizedBox(height: 32),
                         PrimaryButton(onPressed: _onLoggedIn, title: "Sign In"),
                         SizedBox(height: 16),
-                        // Column(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Text(context.localization.dont_have_an_account),
-                        //     IconButton(
-                        //         onPressed: () {
-                        //           context.go(Routes.signup);
-                        //         },
-                        //         icon: Text(
-                        //           context.localization.sign_up,
-                        //           style: context.textTheme.headlineSmall
-                        //               ?.copyWith(
-                        //                   fontWeight: FontWeight.w700,
-                        //                   color: context.colorScheme.primary),
-                        //         ))
-                        //   ],
-                        // )
                       ],
                     ),
                   ),

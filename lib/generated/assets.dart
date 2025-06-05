@@ -124,6 +124,8 @@ class Assets {
       'lib/modules/main/screens/banners/models/get_banners_response.dart';
   static const String modelsLoginInputModel =
       'lib/modules/authentication/models/login_input_model.dart';
+  static const String modelsTicketAddResponse =
+      'lib/modules/main/screens/support/models/ticket_add_response.dart';
   static const String modelsUpdateSupportResponse =
       'lib/modules/main/screens/support/models/update_support_response.dart';
   static const String modelsUploadFileInput =
@@ -241,6 +243,8 @@ class Assets {
       'lib/utils/validators/phone_validator.dart';
   static const String validatorsValidators =
       'lib/utils/validators/validators.dart';
+  static const String widgetAddResponseDialogue =
+      'lib/modules/main/screens/support/widget/add_response_dialogue.dart';
   static const String widgetsAnimatedSearchbar =
       'lib/ui/widgets/animated_searchbar.dart';
   static const String widgetsBaseScaffold = 'lib/ui/widgets/base_scaffold.dart';

@@ -41,9 +41,6 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(loginStatus: LoginStatus.loading));
 
     try {
-      // loginInput.fcmToken = await sl<CloudMessagingApi>().getFcmToken() ?? '';
-      // _log.e('fcm token is :: ${loginInput.fcmToken}');
-      // print('fcm token is :: ${loginInput.fcmToken}');
       AuthResponse authResponse = await _authRepository.login(loginInput);
       if (authResponse.result == 'success') {
         await setToken(authResponse.data.token);

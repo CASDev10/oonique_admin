@@ -73,4 +73,34 @@ class SupportRepository {
       throw ApiError(message: '$e', code: 0);
     }
   }
+
+  Future<UpdateSupportResponse> addResponse({
+    required int supportId,
+    required String status,
+  }) async {
+    try {
+      var data = {"status": status};
+      final token = await getToken();
+      var response = await _dioClient.post(
+        Endpoints.updateSupport(supportId),
+        data: data,
+
+        options: Options(headers: {'Authorization': token}),
+      );
+      UpdateSupportResponse updateSupportResponse = await compute(
+        updateSupportResponseFromJson,
+        response.data,
+      );
+      return updateSupportResponse;
+    } on DioException catch (e, stackTrace) {
+      _log.e(e, stackTrace: stackTrace);
+      throw ApiError.fromDioException(e);
+    } on TypeError catch (e, stackTrace) {
+      _log.e(stackTrace);
+      throw ApiError(message: '$e', code: 0);
+    } catch (e) {
+      _log.e(e);
+      throw ApiError(message: '$e', code: 0);
+    }
+  }
 }

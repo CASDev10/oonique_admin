@@ -36,10 +36,10 @@ class LoginMobileView extends StatefulWidget {
 
 class _LoginMobileViewState extends State<LoginMobileView> {
   TextEditingController emailController = TextEditingController(
-    // text: "admin@oonique.com",
+    text: "admin@oonique.com",
   );
   TextEditingController passwordController = TextEditingController(
-    // text: "11223344",
+    text: "11223344",
   );
   final _formKey = GlobalKey<FormState>();
 

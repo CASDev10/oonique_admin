@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oonique/modules/main/screens/support/models/all_support_response.dart';
 import 'package:oonique/modules/main/screens/support/pages/support_page_mobile.dart';
 import 'package:oonique/modules/main/screens/support/repository/support_repository.dart';
 import 'package:oonique/ui/widgets/loading_indicator.dart';
-import 'package:oonique/ui/widgets/on_click.dart';
 import 'package:oonique/utils/extensions/extended_context.dart';
 
 import '../../../../../core/di/service_locator.dart';
@@ -49,19 +47,10 @@ class _SupportPageDesktopViewState extends State<SupportPageDesktopView> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              OnClick(
-                onTap: () async {
-                  final SupportRepository _repo = sl<SupportRepository>();
-
-                  AllSupportResponse response = await _repo.allTickets();
-                  print(response.data.length);
-                },
-                child: Text(
-                  "Tickets Management",
-                  style: context.textTheme.headlineLarge,
-                ),
+              Text(
+                "Tickets Management",
+                style: context.textTheme.headlineLarge,
               ),
-
               SizedBox(height: 16.0),
               Expanded(
                 child: PaginatedTicketsTable(

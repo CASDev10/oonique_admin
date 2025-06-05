@@ -9,12 +9,12 @@ import 'package:oonique/utils/extensions/extended_context.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
 import '../../../../../core/di/service_locator.dart';
-import '../../../../../ui/widgets/custom_dropdown.dart';
 import '../../../../../ui/widgets/helper_function.dart';
 import '../../../../../ui/widgets/loading_indicator.dart';
 import '../cubits/support_cubits.dart';
 import '../models/all_support_response.dart';
 import '../repository/support_repository.dart';
+import '../widget/add_response_dialogue.dart';
 
 class SupportPageMobile extends StatelessWidget {
   const SupportPageMobile({super.key, required this.size});
@@ -228,6 +228,94 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         field: 'attachments',
         type: PlutoColumnType.text(),
       ),
+      // PlutoColumn(
+      //   title: 'View',
+      //   field: 'view',
+      //   width: getCellSpacingSupport(context, widget.size),
+      //
+      //   type: PlutoColumnType.text(),
+      //   enableColumnDrag: false,
+      //   enableDropToResize: false,
+      //   enableEditingMode: false,
+      //   enableContextMenu: false,
+      //   renderer: (rendererContext) {
+      //     SupportResponseModel model = rendererContext.cell.value;
+      //     return InkWell(
+      //       onTap: () {
+      //         if (model.images.isNotEmpty) {
+      //           showDialog(
+      //             barrierDismissible: false,
+      //             context: context,
+      //             builder:
+      //                 (context) => Dialog(
+      //                   shape: RoundedRectangleBorder(
+      //                     borderRadius: BorderRadius.circular(14.0),
+      //                   ),
+      //
+      //                   child: Container(
+      //                     padding: EdgeInsets.all(14.0),
+      //                     width:
+      //                         MediaQuery.of(context).size.width >= 1100
+      //                             ? MediaQuery.of(context).size.width * 0.4
+      //                             : MediaQuery.of(context).size.width >= 850
+      //                             ? MediaQuery.of(context).size.width * 0.5
+      //                             : MediaQuery.of(context).size.width >= 650
+      //                             ? MediaQuery.of(context).size.width * 0.6
+      //                             : MediaQuery.of(context).size.width,
+      //
+      //                     child: Column(
+      //                       crossAxisAlignment: CrossAxisAlignment.start,
+      //                       mainAxisSize: MainAxisSize.min,
+      //                       children: [
+      //                         Row(
+      //                           mainAxisAlignment:
+      //                               MainAxisAlignment.spaceBetween,
+      //                           children: [
+      //                             Text(
+      //                               "Attachment Pictures",
+      //                               style: context.textTheme.headlineSmall
+      //                                   ?.copyWith(fontWeight: FontWeight.bold),
+      //                             ),
+      //                             OnClick(
+      //                               onTap: () {
+      //                                 NavRouter.pop(context);
+      //                               },
+      //                               child: Container(
+      //                                 decoration: BoxDecoration(
+      //                                   borderRadius: BorderRadius.circular(
+      //                                     100.0,
+      //                                   ),
+      //                                   border: Border.all(color: Colors.black),
+      //                                 ),
+      //                                 child: Icon(Icons.close, size: 16.0),
+      //                               ),
+      //                             ),
+      //                           ],
+      //                         ),
+      //                         SizedBox(height: 8.0),
+      //                         SingleChildScrollView(
+      //                           child: Column(
+      //                             children:
+      //                                 model.images.map((image) {
+      //                                   return _imageSection(
+      //                                     "http://202.166.170.246:4300/${image.image}",
+      //                                   );
+      //                                 }).toList(),
+      //                           ),
+      //                         ),
+      //                       ],
+      //                     ),
+      //                   ),
+      //                 ),
+      //           );
+      //         } else {
+      //           DisplayUtils.showSnackBar(context, "No Image Attachments");
+      //         }
+      //       },
+      //       child: Icon(Icons.remove_red_eye),
+      //     );
+      //   },
+      // ),
       PlutoColumn(
         title: 'Actions',
         field: 'actions',
@@ -240,108 +328,116 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         enableContextMenu: false,
         renderer: (rendererContext) {
           SupportResponseModel model = rendererContext.cell.value;
+          return PopupMenuButton<String>(
+            itemBuilder:
+                (context) => [
+                  PopupMenuItem(
+                    value: 'view',
+                    child: Text('View'),
+                    onTap: () {
+                      if (model.images.isNotEmpty) {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder:
+                              (context) => Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14.0),
+                                ),
 
-          return CustomDropDown(
-            hint: "Select Status",
-            items: ["Pending", "In Progress", "Resolved"],
-            onSelect: (v) {
-              String status = returnStatus(v);
+                                child: Container(
+                                  padding: EdgeInsets.all(14.0),
+                                  width:
+                                      MediaQuery.of(context).size.width >= 1100
+                                          ? MediaQuery.of(context).size.width *
+                                              0.4
+                                          : MediaQuery.of(context).size.width >=
+                                              850
+                                          ? MediaQuery.of(context).size.width *
+                                              0.5
+                                          : MediaQuery.of(context).size.width >=
+                                              650
+                                          ? MediaQuery.of(context).size.width *
+                                              0.6
+                                          : MediaQuery.of(context).size.width,
 
-              context
-                  .read<UpdateTicketCubit>()
-                  .updateTicket(supportId: model.id, status: status)
-                  .then((v) {
-                    context.read<SupportsTicketCubit>().getAllTickets();
-                  });
-            },
-          );
-        },
-      ),
-      PlutoColumn(
-        title: 'View',
-        field: 'view',
-        width: getCellSpacingSupport(context, widget.size),
-
-        type: PlutoColumnType.text(),
-        enableColumnDrag: false,
-        enableDropToResize: false,
-        enableEditingMode: false,
-        enableContextMenu: false,
-        renderer: (rendererContext) {
-          SupportResponseModel model = rendererContext.cell.value;
-          return InkWell(
-            onTap: () {
-              if (model.images.isNotEmpty) {
-                showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder:
-                      (context) => Dialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14.0),
-                        ),
-
-                        child: Container(
-                          padding: EdgeInsets.all(14.0),
-                          width:
-                              MediaQuery.of(context).size.width >= 1100
-                                  ? MediaQuery.of(context).size.width * 0.4
-                                  : MediaQuery.of(context).size.width >= 850
-                                  ? MediaQuery.of(context).size.width * 0.5
-                                  : MediaQuery.of(context).size.width >= 650
-                                  ? MediaQuery.of(context).size.width * 0.6
-                                  : MediaQuery.of(context).size.width,
-
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Attachment Pictures",
-                                    style: context.textTheme.headlineSmall
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                  OnClick(
-                                    onTap: () {
-                                      NavRouter.pop(context);
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                          100.0,
-                                        ),
-                                        border: Border.all(color: Colors.black),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Attachment Pictures",
+                                            style: context
+                                                .textTheme
+                                                .headlineSmall
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                          OnClick(
+                                            onTap: () {
+                                              NavRouter.pop(context);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                      100.0,
+                                                    ),
+                                                border: Border.all(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              child: Icon(
+                                                Icons.close,
+                                                size: 16.0,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      child: Icon(Icons.close, size: 16.0),
-                                    ),
+                                      SizedBox(height: 8.0),
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children:
+                                              model.images.map((image) {
+                                                return _imageSection(
+                                                  "http://202.166.170.246:4300/${image.image}",
+                                                );
+                                              }).toList(),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                              SizedBox(height: 8.0),
-                              SingleChildScrollView(
-                                child: Column(
-                                  children:
-                                      model.images.map((image) {
-                                        return _imageSection(
-                                          "http://202.166.170.246:4300/${image.image}",
-                                        );
-                                      }).toList(),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                );
-              } else {
-                DisplayUtils.showSnackBar(context, "No Image Attachments");
-              }
-            },
-            child: Icon(Icons.remove_red_eye),
+                        );
+                      } else {
+                        DisplayUtils.showSnackBar(
+                          context,
+                          "No Image Attachments",
+                        );
+                      }
+                    },
+                  ),
+                  PopupMenuItem(
+                    value: 'response',
+                    child: Text('Add Response'),
+                    onTap: () async {
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) => AddResponseDialogue(model: model),
+                      );
+                    },
+                  ),
+                ],
+            icon: const Icon(Icons.more_vert),
           );
         },
       ),
@@ -361,7 +457,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
               "status": PlutoCell(value: ticket.status),
               "attachments": PlutoCell(value: ticket.images.length.toString()),
               'actions': PlutoCell(value: ticket),
-              'view': PlutoCell(value: ticket),
+              // 'view': PlutoCell(value: ticket),
             },
           );
         }).toList();
@@ -395,7 +491,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
               "status": PlutoCell(value: ticket.status),
               "attachments": PlutoCell(value: ticket.images.length.toString()),
               'actions': PlutoCell(value: ticket),
-              'view': PlutoCell(value: ticket),
+              // 'view': PlutoCell(value: ticket),
             },
           );
         }).toList();
