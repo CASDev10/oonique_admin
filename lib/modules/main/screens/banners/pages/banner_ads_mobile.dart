@@ -46,6 +46,14 @@ class BannerAdsMobileView extends StatefulWidget {
 
 class _BannerAdsMobileViewState extends State<BannerAdsMobileView> {
   @override
+  void initState() {
+    setState(() {
+      context.read<BannerAdsCubit>().getAllBanners();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Padding(

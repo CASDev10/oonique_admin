@@ -66,7 +66,7 @@ class SupportResponseModel {
   String status;
   String createdAt;
   String updatedAt;
-  List<Image> images;
+  List<ImageData> images;
 
   SupportResponseModel({
     required this.id,
@@ -93,7 +93,7 @@ class SupportResponseModel {
     String? status,
     String? createdAt,
     String? updatedAt,
-    List<Image>? images,
+    List<ImageData>? images,
   }) => SupportResponseModel(
     id: id ?? this.id,
     userId: userId ?? this.userId,
@@ -120,7 +120,9 @@ class SupportResponseModel {
         status: json["status"] ?? "",
         createdAt: json["createdAt"],
         updatedAt: json["updatedAt"],
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        images: List<ImageData>.from(
+          json["images"].map((x) => ImageData.fromJson(x)),
+        ),
       );
 
   Map<String, dynamic> toJson() => {
@@ -138,17 +140,17 @@ class SupportResponseModel {
   };
 }
 
-class Image {
+class ImageData {
   int id;
   String image;
 
-  Image({required this.id, required this.image});
+  ImageData({required this.id, required this.image});
 
-  Image copyWith({int? id, String? image}) =>
-      Image(id: id ?? this.id, image: image ?? this.image);
+  ImageData copyWith({int? id, String? image}) =>
+      ImageData(id: id ?? this.id, image: image ?? this.image);
 
-  factory Image.fromJson(Map<String, dynamic> json) =>
-      Image(id: json["id"], image: json["image"]);
+  factory ImageData.fromJson(Map<String, dynamic> json) =>
+      ImageData(id: json["id"], image: json["image"]);
 
   Map<String, dynamic> toJson() => {"id": id, "image": image};
 }

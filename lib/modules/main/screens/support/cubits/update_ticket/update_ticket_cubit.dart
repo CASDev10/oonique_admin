@@ -26,7 +26,7 @@ class UpdateTicketCubit extends Cubit<UpdateTicketState> {
     try {
       UpdateSupportResponse response = await _supportRepository.updateTicket(
         supportId: supportId,
-        status: "",
+        status: status,
       );
       if (response.result == 'success') {
         emit(

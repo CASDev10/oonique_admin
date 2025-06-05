@@ -49,9 +49,11 @@ class SupportRepository {
     required String status,
   }) async {
     try {
+      var data = {"status": status};
       final token = await getToken();
       var response = await _dioClient.post(
         Endpoints.updateSupport(supportId),
+        data: data,
 
         options: Options(headers: {'Authorization': token}),
       );

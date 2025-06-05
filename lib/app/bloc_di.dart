@@ -8,6 +8,7 @@ import '../modules/main/cibut/sidebar_cubit.dart';
 import '../modules/main/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import '../modules/main/screens/banners/repositories/repo.dart';
 import '../modules/main/screens/support/cubits/support_cubits.dart';
+import '../modules/main/screens/support/cubits/update_ticket/update_ticket_cubit.dart';
 import '../modules/startup/startup_cubit.dart';
 import 'app_cubit.dart';
 
@@ -31,6 +32,12 @@ class BlocDI extends StatelessWidget {
               (context) => SupportsTicketCubit(
                 supportRepository: sl<SupportRepository>(),
               ),
+        ),
+
+        BlocProvider(
+          create:
+              (context) =>
+                  UpdateTicketCubit(supportRepository: sl<SupportRepository>()),
         ),
         BlocProvider<AppCubit>(create: (context) => AppCubit(sl())..init()),
         BlocProvider<SideBarCubit>(create: (context) => SideBarCubit()),

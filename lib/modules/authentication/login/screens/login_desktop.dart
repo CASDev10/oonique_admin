@@ -38,10 +38,10 @@ class LoginDesktopView extends StatefulWidget {
 
 class _LoginDesktopViewState extends State<LoginDesktopView> {
   TextEditingController emailController = TextEditingController(
-    text: "admin@oonique.com",
+    // text: "admin@oonique.com",
   );
   TextEditingController passwordController = TextEditingController(
-    text: "11223344",
+    // text: "11223344",
   );
 
   final _formKey = GlobalKey<FormState>();
