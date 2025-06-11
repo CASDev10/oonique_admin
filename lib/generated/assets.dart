@@ -120,6 +120,8 @@ class Assets {
       'lib/modules/authentication/models/authResponse.dart';
   static const String modelsBannerDeleteResponse =
       'lib/modules/main/screens/banners/models/banner_delete_response.dart';
+  static const String modelsFiltersResponse =
+      'lib/modules/main/screens/banners/models/filters_response.dart';
   static const String modelsGetBannersResponse =
       'lib/modules/main/screens/banners/models/get_banners_response.dart';
   static const String modelsLoginInputModel =

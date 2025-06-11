@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:oonique/modules/main/screens/banners/models/add_banner_input.dart';
 import 'package:oonique/modules/main/screens/banners/models/add_banner_response.dart';
 import 'package:oonique/modules/main/screens/banners/models/banner_delete_response.dart';
+import 'package:oonique/modules/main/screens/banners/models/filters_response.dart';
 import 'package:oonique/modules/main/screens/banners/models/get_banners_response.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
 
@@ -34,6 +35,30 @@ class BannersRepository {
         response.data,
       );
       return getBannerResponse;
+    } on DioException catch (e, stackTrace) {
+      _log.e(e, stackTrace: stackTrace);
+      throw ApiError.fromDioException(e);
+    } on TypeError catch (e, stackTrace) {
+      _log.e(stackTrace);
+      throw ApiError(message: '$e', code: 0);
+    } catch (e) {
+      _log.e(e);
+      throw ApiError(message: '$e', code: 0);
+    }
+  }
+
+  Future<FiltersResponse> getCategories() async {
+    try {
+      final token = await getToken();
+      var response = await _dioClient.get(
+        Endpoints.categories,
+        options: Options(headers: {'Authorization': token}),
+      );
+      FiltersResponse filtersResponse = await compute(
+        filtersResponseFromJson,
+        response.data,
+      );
+      return filtersResponse;
     } on DioException catch (e, stackTrace) {
       _log.e(e, stackTrace: stackTrace);
       throw ApiError.fromDioException(e);
@@ -80,6 +105,7 @@ class BannersRepository {
         "banner_link": input.bannerLink,
         "display_order": input.displayOrder,
         "status": input.status,
+        "category": input.category,
         "image": input.file,
       });
       final token = await getToken();

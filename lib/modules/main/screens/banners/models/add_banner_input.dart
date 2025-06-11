@@ -6,12 +6,14 @@ class AddBannerInput {
   String subTitle;
   String description;
   String bannerLink;
+  String category;
   String displayOrder;
   String status;
   MultipartFile? file;
   AddBannerInput({
     required this.title,
     required this.subTitle,
+    required this.category,
     required this.description,
     required this.bannerLink,
     required this.displayOrder,
@@ -26,12 +28,14 @@ class AddBannerInput {
     String? description,
     String? bannerLink,
     String? displayOrder,
+    String? category,
     String? status,
     int? id,
     MultipartFile? file,
   }) => AddBannerInput(
     title: title ?? this.title,
     file: file ?? this.file,
+    category: category ?? this.category,
     subTitle: subTitle ?? this.subTitle,
     description: description ?? this.description,
     bannerLink: bannerLink ?? this.bannerLink,
@@ -46,6 +50,7 @@ class AddBannerInput {
     description: json["description"],
     bannerLink: json["banner_link"],
     displayOrder: json["display_order"],
+    category: json["category"],
     status: json["status"],
   );
 
@@ -56,5 +61,6 @@ class AddBannerInput {
     "banner_link": bannerLink,
     "display_order": displayOrder,
     "status": status,
+    "category": category,
   };
 }

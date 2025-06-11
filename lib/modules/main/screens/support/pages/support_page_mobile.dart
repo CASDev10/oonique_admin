@@ -62,7 +62,7 @@ class _SupportPageMobileViewState extends State<SupportPageMobileView> {
                     child: PaginatedTicketsTable(
                       tickets: state.tickets,
                       size: widget.size,
-                      totalItems: 1000,
+                      totalItems: state.totalItems,
                     ),
                   ),
                 ],
@@ -220,7 +220,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
       PlutoColumn(
         enableColumnDrag: false,
         enableDropToResize: false,
-        width: getCellSpacingSupport(context, widget.size),
+        width: getIdCellSpacingSupport(context, widget.size),
         suppressedAutoSize: true,
         enableEditingMode: false,
         enableContextMenu: false,
@@ -228,94 +228,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         field: 'attachments',
         type: PlutoColumnType.text(),
       ),
-      // PlutoColumn(
-      //   title: 'View',
-      //   field: 'view',
-      //   width: getCellSpacingSupport(context, widget.size),
-      //
-      //   type: PlutoColumnType.text(),
-      //   enableColumnDrag: false,
-      //   enableDropToResize: false,
-      //   enableEditingMode: false,
-      //   enableContextMenu: false,
-      //   renderer: (rendererContext) {
-      //     SupportResponseModel model = rendererContext.cell.value;
-      //     return InkWell(
-      //       onTap: () {
-      //         if (model.images.isNotEmpty) {
-      //           showDialog(
-      //             barrierDismissible: false,
-      //             context: context,
-      //             builder:
-      //                 (context) => Dialog(
-      //                   shape: RoundedRectangleBorder(
-      //                     borderRadius: BorderRadius.circular(14.0),
-      //                   ),
-      //
-      //                   child: Container(
-      //                     padding: EdgeInsets.all(14.0),
-      //                     width:
-      //                         MediaQuery.of(context).size.width >= 1100
-      //                             ? MediaQuery.of(context).size.width * 0.4
-      //                             : MediaQuery.of(context).size.width >= 850
-      //                             ? MediaQuery.of(context).size.width * 0.5
-      //                             : MediaQuery.of(context).size.width >= 650
-      //                             ? MediaQuery.of(context).size.width * 0.6
-      //                             : MediaQuery.of(context).size.width,
-      //
-      //                     child: Column(
-      //                       crossAxisAlignment: CrossAxisAlignment.start,
-      //                       mainAxisSize: MainAxisSize.min,
-      //                       children: [
-      //                         Row(
-      //                           mainAxisAlignment:
-      //                               MainAxisAlignment.spaceBetween,
-      //                           children: [
-      //                             Text(
-      //                               "Attachment Pictures",
-      //                               style: context.textTheme.headlineSmall
-      //                                   ?.copyWith(fontWeight: FontWeight.bold),
-      //                             ),
-      //                             OnClick(
-      //                               onTap: () {
-      //                                 NavRouter.pop(context);
-      //                               },
-      //                               child: Container(
-      //                                 decoration: BoxDecoration(
-      //                                   borderRadius: BorderRadius.circular(
-      //                                     100.0,
-      //                                   ),
-      //                                   border: Border.all(color: Colors.black),
-      //                                 ),
-      //                                 child: Icon(Icons.close, size: 16.0),
-      //                               ),
-      //                             ),
-      //                           ],
-      //                         ),
-      //                         SizedBox(height: 8.0),
-      //                         SingleChildScrollView(
-      //                           child: Column(
-      //                             children:
-      //                                 model.images.map((image) {
-      //                                   return _imageSection(
-      //                                     "http://202.166.170.246:4300/${image.image}",
-      //                                   );
-      //                                 }).toList(),
-      //                           ),
-      //                         ),
-      //                       ],
-      //                     ),
-      //                   ),
-      //                 ),
-      //           );
-      //         } else {
-      //           DisplayUtils.showSnackBar(context, "No Image Attachments");
-      //         }
-      //       },
-      //       child: Icon(Icons.remove_red_eye),
-      //     );
-      //   },
-      // ),
+
       PlutoColumn(
         title: 'Actions',
         field: 'actions',
@@ -433,7 +346,11 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
                         barrierDismissible: false,
                         context: context,
                         builder: (context) => AddResponseDialogue(model: model),
-                      );
+                      ).then((v) async {
+                        await context
+                            .read<SupportsTicketCubit>()
+                            .getAllTickets();
+                      });
                     },
                   ),
                 ],

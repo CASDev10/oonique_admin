@@ -7,7 +7,6 @@ import '../../../../../config/routes/nav_router.dart';
 import '../../../../../ui/input/input_field.dart';
 import '../../../../../ui/widgets/custom_dropdown.dart';
 import '../../../../../ui/widgets/on_click.dart';
-import '../cubits/support_cubits.dart';
 import '../cubits/update_ticket/update_ticket_cubit.dart';
 import '../models/all_support_response.dart';
 import '../pages/support_page_mobile.dart';
@@ -22,6 +21,8 @@ class AddResponseDialogue extends StatefulWidget {
 
 class _AddResponseDialogueState extends State<AddResponseDialogue> {
   String? status;
+  final TextEditingController responseMessageController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +69,7 @@ class _AddResponseDialogueState extends State<AddResponseDialogue> {
             ),
             SizedBox(height: 8.0),
             InputField(
-              controller: TextEditingController(),
+              controller: responseMessageController,
               label: "Response Message",
               maxLines: 4,
               textInputAction: TextInputAction.done,
@@ -86,17 +87,26 @@ class _AddResponseDialogueState extends State<AddResponseDialogue> {
               children: [
                 Expanded(
                   child: PrimaryButton(
-                    onPressed: () {
-                      context
-                          .read<UpdateTicketCubit>()
-                          .updateTicket(
-                            supportId: widget.model.id,
-                            status: status!,
-                          )
-                          .then((v) {
-                            NavRouter.pop(context);
-                            context.read<SupportsTicketCubit>().getAllTickets();
-                          });
+                    onPressed: () async {
+                      if (responseMessageController.text.isNotEmpty) {
+                        await context
+                            .read<UpdateTicketCubit>()
+                            .addTicketResponse(
+                              supportId: widget.model.id,
+                              message: responseMessageController.text,
+                            )
+                            .then((v) async {
+                              await context
+                                  .read<UpdateTicketCubit>()
+                                  .updateTicket(
+                                    supportId: widget.model.id,
+                                    status: status!,
+                                  )
+                                  .then((v) async {
+                                    NavRouter.pop(context);
+                                  });
+                            });
+                      }
                     },
                     title: "Save",
                   ),
@@ -119,6 +129,5 @@ class _AddResponseDialogueState extends State<AddResponseDialogue> {
         ),
       ),
     );
-    ;
   }
 }

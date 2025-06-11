@@ -46,6 +46,7 @@ class BannersModel {
   dynamic description;
   dynamic bannerLink;
   String image;
+  String category;
   int displayOrder;
   bool status;
   String createdAt;
@@ -54,6 +55,7 @@ class BannersModel {
   BannersModel({
     required this.id,
     required this.title,
+    required this.category,
     required this.subTitle,
     required this.description,
     required this.bannerLink,
@@ -71,6 +73,7 @@ class BannersModel {
     dynamic description,
     dynamic bannerLink,
     String? image,
+    String? category,
     int? displayOrder,
     bool? status,
     String? createdAt,
@@ -82,6 +85,7 @@ class BannersModel {
     description: description ?? this.description,
     bannerLink: bannerLink ?? this.bannerLink,
     image: image ?? this.image,
+    category: category ?? this.category,
     displayOrder: displayOrder ?? this.displayOrder,
     status: status ?? this.status,
     createdAt: createdAt ?? this.createdAt,
@@ -95,6 +99,7 @@ class BannersModel {
     description: json["description"] ?? "",
     bannerLink: json["banner_link"] ?? "",
     image: json["image"] ?? "",
+    category: json["category"] ?? "",
     displayOrder: json["display_order"] ?? "",
     status: json["status"] ?? false,
     createdAt: json["createdAt"] ?? "",
@@ -111,6 +116,7 @@ class BannersModel {
     "display_order": displayOrder,
     "status": status,
     "createdAt": createdAt,
+    "category": category,
     "updatedAt": updatedAt,
   };
 }

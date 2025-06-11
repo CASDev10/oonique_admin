@@ -56,7 +56,7 @@ class _SupportPageDesktopViewState extends State<SupportPageDesktopView> {
                 child: PaginatedTicketsTable(
                   tickets: state.tickets,
                   size: widget.size,
-                  totalItems: 10,
+                  totalItems: state.totalItems,
                 ),
               ),
             ],

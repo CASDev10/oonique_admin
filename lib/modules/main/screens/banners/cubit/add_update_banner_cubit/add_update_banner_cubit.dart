@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oonique/modules/main/screens/banners/models/filters_response.dart';
 import 'package:oonique/modules/main/screens/banners/repositories/repo.dart';
 
 import '../../../../../../core/exceptions/api_error.dart';
@@ -17,6 +18,39 @@ class AddUpdateBannerCubit extends Cubit<AddUpdateBannerState> {
       super(AddUpdateBannerState.initial());
 
   final _log = logger(AddUpdateBannerCubit);
+
+  Future<void> getCategories() async {
+    emit(state.copyWith(bannersState: AddUpdateBannerStatus.loading));
+
+    try {
+      FiltersResponse response = await _bannersRepository.getCategories();
+
+      if (response.result == 'success') {
+        emit(
+          state.copyWith(
+            bannersState: AddUpdateBannerStatus.success,
+            categories: response.data.filters.firstWhere(
+              (v) => v.key == "kategorie",
+            ),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            bannersState: AddUpdateBannerStatus.error,
+            errorMessage: response.result,
+          ),
+        );
+      }
+    } on ApiError catch (e) {
+      emit(
+        state.copyWith(
+          bannersState: AddUpdateBannerStatus.error,
+          errorMessage: e.message,
+        ),
+      );
+    }
+  }
 
   Future<void> addUpdateBanners(AddBannerInput input) async {
     emit(state.copyWith(bannersState: AddUpdateBannerStatus.loading));

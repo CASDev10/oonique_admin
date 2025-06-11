@@ -19,7 +19,7 @@ class SupportRepository {
   //
   Future<AllSupportResponse> allTickets({int? page = 1}) async {
     try {
-      var query = {"limit": 20, "page": page};
+      var query = {"limit": 2000, "page": page};
 
       final token = await getToken();
       var response = await _dioClient.get(
@@ -76,14 +76,15 @@ class SupportRepository {
 
   Future<UpdateSupportResponse> addResponse({
     required int supportId,
-    required String status,
+    required String message,
   }) async {
     try {
-      var data = {"status": status};
+      FormData toFormData() =>
+          FormData.fromMap({"support_id": supportId, "message": message});
       final token = await getToken();
       var response = await _dioClient.post(
-        Endpoints.updateSupport(supportId),
-        data: data,
+        Endpoints.ticketResponse,
+        data: toFormData(),
 
         options: Options(headers: {'Authorization': token}),
       );

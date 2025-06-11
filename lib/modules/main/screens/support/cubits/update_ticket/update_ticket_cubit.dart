@@ -16,6 +16,41 @@ class UpdateTicketCubit extends Cubit<UpdateTicketState> {
       super(UpdateTicketState.initial());
 
   final _log = logger(UpdateTicketCubit);
+  Future<void> addTicketResponse({
+    required int supportId,
+    required String message,
+  }) async {
+    emit(state.copyWith(bannersState: UpdateTicketStatus.loading));
+
+    try {
+      UpdateSupportResponse response = await _supportRepository.addResponse(
+        supportId: supportId,
+        message: message,
+      );
+      if (response.result == 'success') {
+        emit(
+          state.copyWith(
+            bannersState: UpdateTicketStatus.success,
+            errorMessage: response.message,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            bannersState: UpdateTicketStatus.error,
+            errorMessage: response.result,
+          ),
+        );
+      }
+    } on ApiError catch (e) {
+      emit(
+        state.copyWith(
+          bannersState: UpdateTicketStatus.error,
+          errorMessage: e.message,
+        ),
+      );
+    }
+  }
 
   Future<void> updateTicket({
     required int supportId,

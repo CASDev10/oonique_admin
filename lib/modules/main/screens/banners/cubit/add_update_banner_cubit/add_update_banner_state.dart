@@ -4,11 +4,12 @@ enum AddUpdateBannerStatus { initial, loading, success, error }
 
 class AddUpdateBannerState extends Equatable {
   final AddUpdateBannerStatus bannersState;
-
+  final Filter? categories;
   final String errorMessage;
 
   const AddUpdateBannerState({
     required this.bannersState,
+    required this.categories,
     required this.errorMessage,
   });
 
@@ -16,6 +17,7 @@ class AddUpdateBannerState extends Equatable {
     return AddUpdateBannerState(
       bannersState: AddUpdateBannerStatus.initial,
       errorMessage: '',
+      categories: null,
     );
   }
 
@@ -28,10 +30,12 @@ class AddUpdateBannerState extends Equatable {
   AddUpdateBannerState copyWith({
     AddUpdateBannerStatus? bannersState,
     String? errorMessage,
+    Filter? categories,
   }) {
     return AddUpdateBannerState(
       bannersState: bannersState ?? this.bannersState,
       errorMessage: errorMessage ?? this.errorMessage,
+      categories: categories ?? this.categories,
     );
   }
 }

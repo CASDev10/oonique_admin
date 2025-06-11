@@ -164,6 +164,19 @@ class _LoginDesktopViewState extends State<LoginDesktopView> {
                         ),
                         SizedBox(height: 32),
                         PrimaryButton(onPressed: _onLoggedIn, title: "Sign In"),
+                        // PrimaryButton(
+                        //   onPressed: () async {
+                        //     BannersRepository repo = sl<BannersRepository>();
+                        //
+                        //     FiltersResponse response =
+                        //         await repo.getCategories();
+                        //     Filter categories = response.data.filters
+                        //         .firstWhere((v) => v.key == "kategorie");
+                        //
+                        //     print(categories.uniqueValues);
+                        //   },
+                        //   title: "Get Categories",
+                        // ),
                         SizedBox(height: 16),
                       ],
                     ),
