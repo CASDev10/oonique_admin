@@ -7,7 +7,7 @@ import 'package:oonique/utils/extensions/extended_context.dart';
 import '../../../../../constants/routes.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../responsive.dart';
-import '../../../cibut/sidebar_cubit.dart';
+import '../../../../dashboard/view/banner/cibut/sidebar_cubit.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({Key? key}) : super(key: key);

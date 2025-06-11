@@ -9,8 +9,8 @@ import '../../../../constants/routes.dart';
 import '../../../../responsive.dart';
 import '../../../../ui/widgets/loading_indicator.dart';
 import '../../../startup/startup_cubit.dart';
-import '../../cibut/main_cubit.dart';
-import '../../cibut/sidebar_cubit.dart';
+import '../../../dashboard/view/banner/cibut/main_cubit.dart';
+import '../../../dashboard/view/banner/cibut/sidebar_cubit.dart';
 import '../home/home_screen.dart';
 import 'components/side_menu.dart';
 

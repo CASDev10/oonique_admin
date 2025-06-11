@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:oonique/modules/main/screens/banners/models/add_banner_input.dart';
-import 'package:oonique/modules/main/screens/banners/models/add_banner_response.dart';
-import 'package:oonique/modules/main/screens/banners/models/banner_delete_response.dart';
-import 'package:oonique/modules/main/screens/banners/models/filters_response.dart';
-import 'package:oonique/modules/main/screens/banners/models/get_banners_response.dart';
+import 'package:oonique/modules/dashboard/view/banner/models/add_banner_input.dart';
+import 'package:oonique/modules/dashboard/view/banner/models/add_banner_response.dart';
+import 'package:oonique/modules/dashboard/view/banner/models/banner_delete_response.dart';
+import 'package:oonique/modules/dashboard/view/banner/models/filters_response.dart';
+import 'package:oonique/modules/dashboard/view/banner/models/get_banners_response.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
 
 import '../../../../../constants/api_endpoints.dart';

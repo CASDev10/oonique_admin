@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../constants.dart';
 import '../../../../../constants/routes.dart';
 import '../../../../../responsive.dart';
-import '../../../cibut/sidebar_cubit.dart';
+import '../../../../dashboard/view/banner/cibut/sidebar_cubit.dart';
 import '../../../my_files.dart';
 import 'file_info_card.dart';
 

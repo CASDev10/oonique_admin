@@ -6,7 +6,7 @@ import '../../../../../constants.dart';
 import '../../../../../constants/asset_paths.dart';
 import '../../../../../responsive.dart';
 import '../../../../../ui/widgets/circular_cached_image.dart';
-import '../../../cibut/main_cubit.dart';
+import '../../../../dashboard/view/banner/cibut/main_cubit.dart';
 
 class Header extends StatelessWidget {
   final String title;

@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oonique/modules/main/screens/banners/models/filters_response.dart';
+import 'package:oonique/modules/dashboard/view/banner/models/filters_response.dart';
 import 'package:oonique/modules/main/screens/banners/repositories/repo.dart';
 
 import '../../../../../../core/exceptions/api_error.dart';
 import '../../../../../../utils/logger/logger.dart';
-import '../../models/add_banner_input.dart';
-import '../../models/add_banner_response.dart';
+import '../../../../../dashboard/view/banner/models/add_banner_input.dart';
+import '../../../../../dashboard/view/banner/models/add_banner_response.dart';
 
 part 'add_update_banner_state.dart';
 

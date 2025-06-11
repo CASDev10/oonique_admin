@@ -4,9 +4,19 @@ class AppColors {
   static const primaryRed = Color(0xffE30613);
   static const primaryGreen = Color(0xff008D36);
   static const primaryLighter = Color(0xff3E4292);
+  static const borderColor = Color(0xff2b2e3b);
+  static const primaryColor = Color(0xFFff5556);
+  // static const bgColor = Color(0xfffdf7ed);
 
-  static const primary  = Color(0xFF44C8F5);
-  static const secondary  = Color(0xFF44C8F5);
+  static const bgColor = Color(0xff1B1F2C);
+  
+  static const titlaTextColor = Color(0xff94a3b8);
+  static const dialogBgColor = Color(0xff0d1016);
+
+  static const primary = Color(0xFF44C8F5);
+  static const secondary = Color(0xFF44C8F5);
+  static const textGrey = Color(0xFF707070);
+  static const bgGrey = Color(0xFFE5E5E5);
 
   static const grey = Color(0xFF939393);
   static const grey1 = Color(0xFFB9B9B9);
