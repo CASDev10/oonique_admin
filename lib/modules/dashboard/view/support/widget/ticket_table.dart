@@ -183,18 +183,12 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
                       barrierDismissible: false,
                       context: context,
                       builder: (context) => Dialog(
+                        backgroundColor: AppColors.dialogBgColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14.0),
-                        ),
+                            borderRadius: BorderRadius.circular(8.0)),
                         child: Container(
                           padding: EdgeInsets.all(14.0),
-                          width: MediaQuery.of(context).size.width >= 1100
-                              ? MediaQuery.of(context).size.width * 0.4
-                              : MediaQuery.of(context).size.width >= 850
-                                  ? MediaQuery.of(context).size.width * 0.5
-                                  : MediaQuery.of(context).size.width >= 650
-                                      ? MediaQuery.of(context).size.width * 0.6
-                                      : MediaQuery.of(context).size.width,
+                          width: 500,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
@@ -207,6 +201,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
                                     "Attachment Pictures",
                                     style: context.textTheme.headlineSmall
                                         ?.copyWith(
+                                      color: AppColors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -220,12 +215,13 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
                                           100.0,
                                         ),
                                         border: Border.all(
-                                          color: Colors.black,
+                                          color: Colors.white,
                                         ),
                                       ),
                                       child: Icon(
                                         Icons.close,
                                         size: 16.0,
+                                        color: AppColors.white,
                                       ),
                                     ),
                                   ),
