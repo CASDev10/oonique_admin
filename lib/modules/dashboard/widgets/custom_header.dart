@@ -39,7 +39,7 @@ class DrawerHeaderWidget extends StatelessWidget {
                 style: context.textTheme.bodyMedium?.copyWith(
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
-                  color: AppColors.primaryColor,
+                  color: AppColors.white,
                 ),
               ),
               Text(

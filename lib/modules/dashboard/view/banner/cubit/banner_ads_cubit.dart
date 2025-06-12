@@ -5,7 +5,7 @@ import 'package:oonique/modules/dashboard/repo/repo.dart';
 
 import '../../../../../core/exceptions/api_error.dart';
 import '../../../../../utils/logger/logger.dart';
-import '../../../../dashboard/view/banner/models/get_banners_response.dart';
+import '../models/get_banners_response.dart';
 
 part 'banner_ads_state.dart';
 
