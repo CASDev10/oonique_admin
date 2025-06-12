@@ -8,6 +8,7 @@ import '../../../../../config/routes/nav_router.dart';
 import '../../../../../constants/api_endpoints.dart';
 import '../../../../../constants/app_colors.dart';
 import '../cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
+import '../cubit/banner_ads_cubit.dart';
 import '../models/get_banners_response.dart';
 
 class PaginatedBannersTable extends StatefulWidget {
@@ -223,7 +224,7 @@ class _PaginatedBannersTableState extends State<PaginatedBannersTable> {
                     style: context.textTheme.titleSmall?.copyWith(
                       color: Colors.white,
                     )),
-                onTap: () {
+                onTap: () async {
                   showDialog(
                     barrierDismissible: false,
                     context: context,
@@ -235,7 +236,10 @@ class _PaginatedBannersTableState extends State<PaginatedBannersTable> {
                             .addUpdateBanners(input)
                             .then((v) {
                           NavRouter.pop(context);
+                        }).then((v) async {
+                          await context.read<BannerAdsCubit>().getAllBanners();
                         });
+                        ;
                       },
                     ),
                   );
@@ -250,7 +254,9 @@ class _PaginatedBannersTableState extends State<PaginatedBannersTable> {
                   ),
                 ),
                 onTap: () async {
-                  await widget.onDelete!(model.id);
+                  await widget.onDelete!(model.id).then((v) async {
+                    await context.read<BannerAdsCubit>().getAllBanners();
+                  });
                 },
               ),
             ],
