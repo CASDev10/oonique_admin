@@ -30,7 +30,7 @@ class BannerScreen extends StatelessWidget {
         BlocProvider(
           create: (context) => AddUpdateBannerCubit(
             bannersRepository: sl<BannersRepository>(),
-          ),
+          )..getCategories(),
         ),
       ],
       child: BannerScreenView(),
@@ -134,7 +134,7 @@ class _BannerScreenViewState extends State<BannerScreenView> {
                           onPressed: () {
                             showAddNewUserDialog(context);
                           },
-                          title: 'Add User',
+                          title: 'Add Banner',
                           width: 120,
                           height: 40,
                           fontSize: 13,
