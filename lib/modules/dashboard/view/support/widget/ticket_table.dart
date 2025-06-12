@@ -283,7 +283,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
       return PlutoRow(
         cells: {
           'id': PlutoCell(value: ticket.id),
-          "userId": PlutoCell(value: ticket.id),
+          "userId": PlutoCell(value: ticket.userId),
           "message": PlutoCell(value: ticket.message),
           "firstName": PlutoCell(value: ticket.firstName),
           "lastName": PlutoCell(value: ticket.lastName),
@@ -316,7 +316,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         cells: {
           "message": PlutoCell(value: ticket.message),
           'id': PlutoCell(value: ticket.id),
-          "userId": PlutoCell(value: ticket.id),
+          "userId": PlutoCell(value: ticket.userId),
           "firstName": PlutoCell(value: ticket.firstName),
           "lastName": PlutoCell(value: ticket.lastName),
           "email": PlutoCell(value: ticket.email),

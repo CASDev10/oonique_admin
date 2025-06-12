@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:oonique/constants/api_endpoints.dart';
+import 'package:oonique/modules/dashboard/view/banner/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
+import 'package:oonique/modules/dashboard/view/banner/cubit/banner_ads_cubit.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/add_banner_input.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/get_banners_response.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
@@ -18,7 +20,6 @@ import '../../../../../generated/assets.dart';
 import '../../../../../ui/input/custom_input_field.dart';
 import '../../../../../ui/widgets/custom_dropdown_widget.dart';
 import '../../../repo/repo.dart';
-import '../cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 
 class UpdateBannerDialogue extends StatefulWidget {
   const UpdateBannerDialogue({super.key, this.model, required this.onSave});
@@ -355,14 +356,16 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                                     contentType: MediaType(
                                       "image",
                                       "png",
-                                    ), // <-- correct way to specify contentType
+                                    ),
                                   );
                                 }
                                 if (bannerId != null) {
                                   input.id = bannerId;
                                 }
 
-                                widget.onSave(input);
+                                await widget.onSave(input);
+                                // Refresh the banner list after successful update
+                                await context.read<BannerAdsCubit>().getAllBanners();
                               } else {
                                 DisplayUtils.showSnackBar(
                                   context,

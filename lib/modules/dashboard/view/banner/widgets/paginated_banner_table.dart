@@ -224,7 +224,7 @@ class _PaginatedBannersTableState extends State<PaginatedBannersTable> {
                     style: context.textTheme.titleSmall?.copyWith(
                       color: Colors.white,
                     )),
-                onTap: () async {
+                onTap: () {
                   showDialog(
                     barrierDismissible: false,
                     context: context,
@@ -236,10 +236,7 @@ class _PaginatedBannersTableState extends State<PaginatedBannersTable> {
                             .addUpdateBanners(input)
                             .then((v) {
                           NavRouter.pop(context);
-                        }).then((v) async {
-                          await context.read<BannerAdsCubit>().getAllBanners();
                         });
-                        ;
                       },
                     ),
                   );
