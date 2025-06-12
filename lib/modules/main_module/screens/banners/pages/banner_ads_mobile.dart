@@ -7,10 +7,10 @@ import '../../../../../config/routes/nav_router.dart';
 import '../../../../../core/di/service_locator.dart';
 import '../../../../../ui/widgets/loading_indicator.dart';
 import '../../../../../ui/widgets/primary_button.dart';
-import '../../../../dashboard/widgets/paginated_banner_table.dart';
+import '../../../../dashboard/view/banner/widgets/paginated_banner_table.dart';
 import '../cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import '../cubit/banner_ads_cubit.dart';
-import '../repositories/repo.dart';
+import '../../../../dashboard/repo/repo.dart';
 import '../../../../dashboard/view/banner/widgets/update_banner_dialogue.dart';
 import 'banner_ads_desktop.dart';
 
@@ -113,7 +113,7 @@ class _BannerAdsMobileViewState extends State<BannerAdsMobileView> {
                       totalItems: state.totalItems,
                       key: ValueKey(state.allBanners.length),
                       banners: state.allBanners,
-                      size: size,
+                  
                     ),
                   ),
                 ],

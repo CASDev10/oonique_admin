@@ -7,10 +7,10 @@ import 'package:oonique/modules/dashboard/view/banner/models/filters_response.da
 import 'package:oonique/modules/dashboard/view/banner/models/get_banners_response.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
 
-import '../../../../../constants/api_endpoints.dart';
-import '../../../../../core/exceptions/api_error.dart';
-import '../../../../../core/network/dio_client.dart';
-import '../../../../../utils/logger/logger.dart';
+import '../../../constants/api_endpoints.dart';
+import '../../../core/exceptions/api_error.dart';
+import '../../../core/network/dio_client.dart';
+import '../../../utils/logger/logger.dart';
 
 class BannersRepository {
   final DioClient _dioClient;
@@ -76,7 +76,6 @@ class BannersRepository {
       final token = await getToken();
       var response = await _dioClient.post(
         Endpoints.deleteBanner(bannerId),
-
         options: Options(headers: {'Authorization': token}),
       );
       BannerDeleteResponse bannerDeleteResponse = await compute(
@@ -99,15 +98,15 @@ class BannersRepository {
   Future<AddBannerResponse> addUpdateBanner(AddBannerInput input) async {
     try {
       FormData toFormData() => FormData.fromMap({
-        "title": input.title,
-        "sub_title": input.subTitle,
-        "description": input.description,
-        "banner_link": input.bannerLink,
-        "display_order": input.displayOrder,
-        "status": input.status,
-        "category": input.category,
-        "image": input.file,
-      });
+            "title": input.title,
+            "sub_title": input.subTitle,
+            "description": input.description,
+            "banner_link": input.bannerLink,
+            "display_order": input.displayOrder,
+            "status": input.status,
+            "category": input.category,
+            "image": input.file,
+          });
       final token = await getToken();
       var response = await _dioClient.post(
         input.id != null

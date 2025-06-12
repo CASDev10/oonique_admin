@@ -47,8 +47,8 @@ late Map<String, Widget> _screens;
 
     _screens = {
       "Home": Container(),
-      "Banners": BannerScreen(size: screenSize),
-      "Support": SupportScreen(size: screenSize),
+      "Banners": BannerScreen(),
+      "Support": SupportScreen(),
     };
     return Scaffold(
       backgroundColor: AppColors.black,

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oonique/modules/main_module/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import 'package:oonique/modules/main_module/screens/banners/cubit/banner_ads_cubit.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/get_banners_response.dart';
-import 'package:oonique/modules/main_module/screens/banners/repositories/repo.dart';
+import 'package:oonique/modules/dashboard/repo/repo.dart';
 import 'package:oonique/modules/dashboard/view/banner/widgets/update_banner_dialogue.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
 import 'package:oonique/ui/widgets/loading_indicator.dart';
@@ -16,7 +16,7 @@ import '../../../../../config/routes/nav_router.dart';
 import '../../../../../constants/api_endpoints.dart';
 import '../../../../../core/di/service_locator.dart';
 import '../../../../../utils/display/display_utils.dart';
-import '../../../../dashboard/widgets/paginated_banner_table.dart';
+import '../../../../dashboard/view/banner/widgets/paginated_banner_table.dart';
 
 class BannerAdsDesktop extends StatelessWidget {
   const BannerAdsDesktop({super.key, required this.size});
@@ -135,7 +135,7 @@ class _BannerAdsDesktopViewState extends State<BannerAdsDesktopView> {
                       },
                       key: ValueKey(state.allBanners.length),
                       banners: state.allBanners,
-                      size: widget.size,
+                     
                     ),
                   ),
                 ],

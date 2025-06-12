@@ -6,7 +6,7 @@ import '../core/core.dart';
 import '../modules/dashboard/view/banner/cibut/main_cubit.dart';
 import '../modules/dashboard/view/banner/cibut/sidebar_cubit.dart';
 import '../modules/main_module/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
-import '../modules/main_module/screens/banners/repositories/repo.dart';
+import '../modules/dashboard/repo/repo.dart';
 import '../modules/dashboard/view/support/cubits/support_cubits.dart';
 import '../modules/dashboard/view/support/cubits/update_ticket/update_ticket_cubit.dart';
 import '../modules/startup/startup_cubit.dart';

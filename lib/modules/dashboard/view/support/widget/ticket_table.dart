@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oonique/config/config.dart';
+import 'package:oonique/constants/app_colors.dart';
 import 'package:oonique/modules/dashboard/view/support/cubits/support_cubits.dart';
 import 'package:oonique/utils/display/display_utils.dart';
 import 'package:oonique/utils/utils.dart';
@@ -11,7 +12,7 @@ import '../models/all_support_response.dart';
 import 'add_response_dialogue.dart';
 
 class PaginatedTicketsTable extends StatefulWidget {
-   PaginatedTicketsTable({
+  PaginatedTicketsTable({
     super.key,
     required this.tickets,
     this.onNext,
@@ -52,9 +53,8 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         enableEditingMode: false,
         enableContextMenu: false,
         enableColumnDrag: false,
-        width: widget.width??150,
+        width: widget.width ?? 150,
         title: 'ID',
-
         field: 'id',
         type: PlutoColumnType.number(),
       ),
@@ -65,7 +65,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         enableEditingMode: false,
         enableContextMenu: false,
         title: 'User Id',
-         width: widget.width??150,
+        width: widget.width ?? 150,
         field: 'userId',
         type: PlutoColumnType.text(),
       ),
@@ -77,9 +77,8 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         enableContextMenu: false,
         title: 'First Name',
         field: 'firstName',
-         width: widget.width??150,
+        width: widget.width ?? 150,
         minWidth: 120,
-
         type: PlutoColumnType.text(),
       ),
       PlutoColumn(
@@ -87,7 +86,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         enableDropToResize: false,
         suppressedAutoSize: true,
         enableEditingMode: false,
-         width: widget.width??150,
+        width: widget.width ?? 150,
         minWidth: 120,
         enableContextMenu: false,
         title: 'Last Name',
@@ -105,13 +104,13 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         enableColumnDrag: false,
         title: 'Email',
         field: 'email',
-         width: widget.width??150,
+        width: widget.width ?? 150,
         type: PlutoColumnType.text(),
       ),
       PlutoColumn(
         enableColumnDrag: false,
         enableDropToResize: false,
-         width: widget.width??150,
+        width: widget.width ?? 150,
         suppressedAutoSize: true,
         enableEditingMode: false,
         enableContextMenu: false,
@@ -122,7 +121,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
       PlutoColumn(
         enableColumnDrag: false,
         enableDropToResize: false,
-         width: widget.width??150,
+        width: widget.width ?? 150,
         suppressedAutoSize: true,
         enableEditingMode: false,
         enableContextMenu: false,
@@ -133,7 +132,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
       PlutoColumn(
         enableColumnDrag: false,
         enableDropToResize: false,
-         width: widget.width??150,
+        width: widget.width ?? 150,
         suppressedAutoSize: true,
         enableEditingMode: false,
         enableContextMenu: false,
@@ -144,7 +143,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
       PlutoColumn(
         enableColumnDrag: false,
         enableDropToResize: false,
-       width: widget.width??150,
+        width: widget.width ?? 150,
         suppressedAutoSize: true,
         enableEditingMode: false,
         enableContextMenu: false,
@@ -152,12 +151,10 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         field: 'attachments',
         type: PlutoColumnType.text(),
       ),
-
       PlutoColumn(
         title: 'Actions',
         field: 'actions',
         width: 150.0,
-
         type: PlutoColumnType.text(),
         enableColumnDrag: false,
         enableDropToResize: false,
@@ -166,142 +163,142 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         renderer: (rendererContext) {
           SupportResponseModel model = rendererContext.cell.value;
           return PopupMenuButton<String>(
-            itemBuilder:
-                (context) => [
-                  PopupMenuItem(
-                    value: 'view',
-                    child: Text('View'),
-                    onTap: () {
-                      if (model.images.isNotEmpty) {
-                        showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder:
-                              (context) => Dialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(14.0),
-                                ),
-
-                                child: Container(
-                                  padding: EdgeInsets.all(14.0),
-                                  width:
-                                      MediaQuery.of(context).size.width >= 1100
-                                          ? MediaQuery.of(context).size.width *
-                                              0.4
-                                          : MediaQuery.of(context).size.width >=
-                                              850
-                                          ? MediaQuery.of(context).size.width *
-                                              0.5
-                                          : MediaQuery.of(context).size.width >=
-                                              650
-                                          ? MediaQuery.of(context).size.width *
-                                              0.6
-                                          : MediaQuery.of(context).size.width,
-
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Attachment Pictures",
-                                            style: context
-                                                .textTheme
-                                                .headlineSmall
-                                                ?.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                          OnClick(
-                                            onTap: () {
-                                              NavRouter.pop(context);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                      100.0,
-                                                    ),
-                                                border: Border.all(
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                              child: Icon(
-                                                Icons.close,
-                                                size: 16.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 8.0),
-                                      SingleChildScrollView(
-                                        child: Column(
-                                          children:
-                                              model.images.map((image) {
-                                                return _imageSection(
-                                                  "http://202.166.170.246:4300/${image.image}",
-                                                );
-                                              }).toList(),
+            color: AppColors.bgColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
+              side: const BorderSide(color: AppColors.borderColor, width: 1),
+            ),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 'view',
+                child: Text(
+                  'View',
+                  style: context.textTheme.titleSmall?.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+                onTap: () {
+                  if (model.images.isNotEmpty) {
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) => Dialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(14.0),
+                          width: MediaQuery.of(context).size.width >= 1100
+                              ? MediaQuery.of(context).size.width * 0.4
+                              : MediaQuery.of(context).size.width >= 850
+                                  ? MediaQuery.of(context).size.width * 0.5
+                                  : MediaQuery.of(context).size.width >= 650
+                                      ? MediaQuery.of(context).size.width * 0.6
+                                      : MediaQuery.of(context).size.width,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Attachment Pictures",
+                                    style: context.textTheme.headlineSmall
+                                        ?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  OnClick(
+                                    onTap: () {
+                                      NavRouter.pop(context);
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                          100.0,
+                                        ),
+                                        border: Border.all(
+                                          color: Colors.black,
                                         ),
                                       ),
-                                    ],
+                                      child: Icon(
+                                        Icons.close,
+                                        size: 16.0,
+                                      ),
+                                    ),
                                   ),
+                                ],
+                              ),
+                              SizedBox(height: 8.0),
+                              SingleChildScrollView(
+                                child: Column(
+                                  children: model.images.map((image) {
+                                    return _imageSection(
+                                      "http://202.166.170.246:4300/${image.image}",
+                                    );
+                                  }).toList(),
                                 ),
                               ),
-                        );
-                      } else {
-                        DisplayUtils.showSnackBar(
-                          context,
-                          "No Image Attachments",
-                        );
-                      }
-                    },
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    DisplayUtils.showSnackBar(
+                      context,
+                      "No Image Attachments",
+                    );
+                  }
+                },
+              ),
+              PopupMenuItem(
+                value: 'response',
+                child: Text(
+                  'Add Response',
+                  style: context.textTheme.titleSmall?.copyWith(
+                    color: Colors.white,
                   ),
-                  PopupMenuItem(
-                    value: 'response',
-                    child: Text('Add Response'),
-                    onTap: () async {
-                      showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) => AddResponseDialogue(model: model),
-                      ).then((v) async {
-                        await context
-                            .read<SupportsTicketCubit>()
-                            .getAllTickets();
-                      });
-                    },
-                  ),
-                ],
-            icon: const Icon(Icons.more_vert),
+                ),
+                onTap: () async {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) => AddResponseDialogue(model: model),
+                  ).then((v) async {
+                    await context.read<SupportsTicketCubit>().getAllTickets();
+                  });
+                },
+              ),
+            ],
+            offset: const Offset(0, 40),
+            icon: const Icon(
+              Icons.more_horiz,
+              color: AppColors.white,
+            ),
           );
         },
       ),
     ];
 
-    allRows =
-        widget.tickets.map((ticket) {
-          return PlutoRow(
-            cells: {
-              'id': PlutoCell(value: ticket.id),
-              "userId": PlutoCell(value: ticket.id),
-              "message": PlutoCell(value: ticket.message),
-              "firstName": PlutoCell(value: ticket.firstName),
-              "lastName": PlutoCell(value: ticket.lastName),
-              "email": PlutoCell(value: ticket.email),
-              "subject": PlutoCell(value: ticket.subject),
-              "status": PlutoCell(value: ticket.status),
-              "attachments": PlutoCell(value: ticket.images.length.toString()),
-              'actions': PlutoCell(value: ticket),
-              // 'view': PlutoCell(value: ticket),
-            },
-          );
-        }).toList();
+    allRows = widget.tickets.map((ticket) {
+      return PlutoRow(
+        cells: {
+          'id': PlutoCell(value: ticket.id),
+          "userId": PlutoCell(value: ticket.id),
+          "message": PlutoCell(value: ticket.message),
+          "firstName": PlutoCell(value: ticket.firstName),
+          "lastName": PlutoCell(value: ticket.lastName),
+          "email": PlutoCell(value: ticket.email),
+          "subject": PlutoCell(value: ticket.subject),
+          "status": PlutoCell(value: ticket.status),
+          "attachments": PlutoCell(value: ticket.images.length.toString()),
+          'actions': PlutoCell(value: ticket),
+        },
+      );
+    }).toList();
   }
 
   void _updateGridRows() {
@@ -318,27 +315,27 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
 
   @override
   Widget build(BuildContext context) {
-    allRows =
-        widget.tickets.map((ticket) {
-          return PlutoRow(
-            cells: {
-              "message": PlutoCell(value: ticket.message),
-              'id': PlutoCell(value: ticket.id),
-              "userId": PlutoCell(value: ticket.id),
-              "firstName": PlutoCell(value: ticket.firstName),
-              "lastName": PlutoCell(value: ticket.lastName),
-              "email": PlutoCell(value: ticket.email),
-              "subject": PlutoCell(value: ticket.subject),
-              "status": PlutoCell(value: ticket.status),
-              "attachments": PlutoCell(value: ticket.images.length.toString()),
-              'actions': PlutoCell(value: ticket),
-              // 'view': PlutoCell(value: ticket),
-            },
-          );
-        }).toList();
+    allRows = widget.tickets.map((ticket) {
+      return PlutoRow(
+        cells: {
+          "message": PlutoCell(value: ticket.message),
+          'id': PlutoCell(value: ticket.id),
+          "userId": PlutoCell(value: ticket.id),
+          "firstName": PlutoCell(value: ticket.firstName),
+          "lastName": PlutoCell(value: ticket.lastName),
+          "email": PlutoCell(value: ticket.email),
+          "subject": PlutoCell(value: ticket.subject),
+          "status": PlutoCell(value: ticket.status),
+          "attachments": PlutoCell(value: ticket.images.length.toString()),
+          'actions': PlutoCell(value: ticket),
+          // 'view': PlutoCell(value: ticket),
+        },
+      );
+    }).toList();
 
-    return Scaffold(
-      body: Column(
+    return Container(
+      color: AppColors.bgColor,
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
@@ -349,7 +346,32 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
                 stateManager = event.stateManager;
                 _updateGridRows(); // load initial page
               },
-              configuration: PlutoGridConfiguration(),
+              configuration: PlutoGridConfiguration(
+                style: PlutoGridStyleConfig(
+                  gridBackgroundColor: Color(0xFF1A1C2C),
+                  borderColor: Color(0xFF2E2E38),
+                  gridBorderColor: Color(0xFF2E2E38),
+                  enableColumnBorderVertical: false,
+                  enableColumnBorderHorizontal: false,
+                  enableCellBorderVertical: false,
+                  enableCellBorderHorizontal: true,
+                  enableGridBorderShadow: true,
+                  columnTextStyle: TextStyle(
+                    color: AppColors.titlaTextColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  cellTextStyle: TextStyle(
+                    color: AppColors.white,
+                  ),
+                  rowColor: AppColors.bgColor,
+
+                  inactivatedBorderColor: AppColors.red,
+                  activatedColor: Color(0xFF2F3340),
+                  // activatedBorderColor: Colors.purpleAccent,
+                  activatedBorderColor: AppColors.primaryColor,
+                  gridBorderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+              ),
             ),
           ),
           Padding(
@@ -376,9 +398,13 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
                     ),
                   ),
                 ),
-
                 const SizedBox(width: 16),
-                Text('Page $_page'),
+                Text(
+                  'Page $_page',
+                  style: context.textTheme.titleSmall?.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
                 const SizedBox(width: 16),
                 ElevatedButton(
                   onPressed: () async {
@@ -413,25 +439,23 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
       width: double.infinity,
       padding: EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border:
-            imagePath.isNotEmpty && imagePath.startsWith('http')
-                ? null
-                : Border.all(color: Colors.grey.shade300),
+        border: imagePath.isNotEmpty && imagePath.startsWith('http')
+            ? null
+            : Border.all(color: Colors.grey.shade300),
         borderRadius: BorderRadius.circular(8),
       ),
-      child:
-          imagePath.isNotEmpty && imagePath.startsWith('http')
-              ? Image.network(
-                imagePath,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => _imagePlaceholder(),
-              )
-              : imagePath.isNotEmpty
+      child: imagePath.isNotEmpty && imagePath.startsWith('http')
+          ? Image.network(
+              imagePath,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => _imagePlaceholder(),
+            )
+          : imagePath.isNotEmpty
               ? Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => _imagePlaceholder(),
-              )
+                  imagePath,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => _imagePlaceholder(),
+                )
               : _imagePlaceholder(),
     );
   }

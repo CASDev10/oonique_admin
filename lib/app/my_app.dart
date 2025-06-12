@@ -6,6 +6,8 @@ import 'package:sizer/sizer.dart';
 
 import '../config/config.dart';
 import '../config/routes/app_routes.dart';
+import '../modules/authentication/login/screens/login_page.dart';
+import '../modules/authentication/login/screens/login_screen.dart';
 import '../ui/widgets/unfocus.dart';
 import 'app_cubit.dart';
 import 'bloc_di.dart';
@@ -33,7 +35,7 @@ class OoniqueApp extends StatelessWidget {
               //     AppRouter.router.routeInformationProvider,
               // routeInformationParser: AppRouter.router.routeInformationParser,
               // routerDelegate: AppRouter.router.routerDelegate,
-          home: BaseView(),
+          home: LoginPage(),
             );
           });
         },

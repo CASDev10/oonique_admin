@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../responsive.dart';
-import 'login_desktop.dart';
+import 'login_page.dart';
 import 'login_mobile.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -12,8 +12,8 @@ class LoginScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Responsive(
       mobile: const LoginMobilePage(),
-      desktop: LoginDesktopPage(size: size),
-      tablet: LoginDesktopPage(size: size),
+      desktop: LoginPage(),
+      tablet: LoginPage(),
     );
   }
 }

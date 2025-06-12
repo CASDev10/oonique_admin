@@ -28,7 +28,7 @@ class CustomDropDown extends StatefulWidget {
     this.hintColor = AppColors.grey1,
     this.suffixIconPath,
     this.disable = false,
-    this.borderColor = AppColors.lightGreyColor,
+    this.borderColor = AppColors.borderColor,
     this.fontSize = 16,
     this.onSelect,
     this.isOutline = true,
@@ -52,11 +52,11 @@ class _CustomDropDownState extends State<CustomDropDown> {
       isDense: true,
       icon: SvgPicture.asset('assets/images/svg/ic_drop_down.svg'),
       style: TextStyle(
-        color: Colors.black, // Set your desired text color here
+        color: AppColors.titlaTextColor, // Set your desired text color here
       ),
       hint: Text(
         widget.hint,
-        style: context.textTheme.bodyMedium?.copyWith(color: widget.hintColor),
+        style: context.textTheme.bodyMedium?.copyWith(color:  AppColors.titlaTextColor),
         overflow: TextOverflow.ellipsis,
       ),
       decoration: InputDecoration(
@@ -67,31 +67,31 @@ class _CustomDropDownState extends State<CustomDropDown> {
         ),
         enabled: true,
         filled: true,
-        fillColor: AppColors.white,
+        fillColor: AppColors.dialogBgColor,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: context.colorScheme.onPrimary,
+            color:AppColors.borderColor,
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: context.colorScheme.onPrimary,
+            color:AppColors.borderColor,
             width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Colors.black, width: 1),
+          borderSide: BorderSide(color: AppColors.borderColor, width: 1),
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: widget.horizontalPadding,
           vertical: widget.verticalPadding,
         ),
       ),
-      dropdownColor: const Color(0xffF4F4F4),
+      dropdownColor:AppColors.dialogBgColor,
       value: dropdownValue,
       borderRadius: BorderRadius.all(Radius.circular(10)),
       onChanged: (String? newValue) {
@@ -112,7 +112,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                 value,
                 style: TextStyle(
                   fontSize: widget.fontSize,
-                  color: Colors.black,
+                  color:  AppColors.titlaTextColor
                 ),
               ),
             );

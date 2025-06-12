@@ -43,6 +43,7 @@ dependencies:
   carousel_slider:
   flutter_slidable:
   sizer:
+  dropdown_button2:
   get_it:
   dio:
   flutter_secure_storage:
@@ -86,15 +87,6 @@ flutter:
     - assets/images/svg/
     - assets/images/png/
     - assets/icons/
-    - lib/modules/main/screens/banners/
-    - lib/modules/main/screens/banners/pages/
-    - lib/modules/main/screens/banners/models/
-    - lib/modules/main/screens/banners/widgets/
-    - lib/modules/main/screens/banners/repositories/
-    - lib/modules/main/screens/support/
-    - lib/modules/main/screens/support/pages/
-    - lib/modules/main/screens/support/models/
-    - lib/modules/main/screens/support/repository/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

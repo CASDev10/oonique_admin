@@ -13,8 +13,7 @@ import '../../../../../ui/widgets/loading_indicator.dart';
 import '../repository/support_repository.dart';
 
 class SupportScreen extends StatelessWidget {
-  const SupportScreen({super.key, required this.size});
-  final Size size;
+   SupportScreen({super.key, });
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -25,7 +24,7 @@ class SupportScreen extends StatelessWidget {
                 ..getAllTickets(),
         ),
       ],
-      child: SupportScreenView(size: size),
+      child: SupportScreenView(),
     );
   }
 }
@@ -40,238 +39,64 @@ class SupportScreenView extends StatefulWidget {
 }
 
 class _SupportScreenViewState extends State<SupportScreenView> {
-  List<Map<String, dynamic>> options = [
-    {
-      'label': 'All',
-      'icon': 'assets/images/svg/allUsers.svg',
-      'count': 8,
-    },
-    // {
-    //   'label': 'Administrators',
-    //   'icon': 'assets/images/svg/admin.svg',
-    //   'count': 1,
-    // },
-    // {
-    //   'label': '2FA Active',
-    //   'icon': 'assets/images/svg/icon4.svg',
-    //   'count': 3,
-    // },
-    {
-      'label': 'Banned',
-      'icon': 'assets/images/svg/icon3.svg',
-      'count': 1,
-    },
-  ];
-
-  // void showAddNewUserDialog(
-  //   BuildContext context,
-  // ) {
-  //   showDialog(
-  //     barrierDismissible: false,
-  //     context: context,
-  //     builder: (context) => UpdateBannerDialogue(
-  //       onSave: (input) {
-  //         context
-  //             .read<AddUpdateBannerCubit>()
-  //             .addUpdateBanners(input)
-  //             .then((v) {
-  //           NavRouter.pop(context);
-  //         });
-  //       },
-  //     ),
-  //   ).then((v) {
-  //     context.read<BannerAdsCubit>().getAllBanners();
-  //   });
-  // }
-
   String selectedOption = 'All';
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: BlocBuilder<SupportsTicketCubit, SupportsTicketState>(
-        builder: (context, state) {
-          if (state.bannersState == SupportsTicketStatus.loading) {
-            return Center(child: LoadingIndicator());
-          }
-          return Container(
-              padding: const EdgeInsets.all(14),
-              height: MediaQuery.of(context).size.height * 0.90,
-              decoration: BoxDecoration(
-                color: AppColors.bgColor,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: AppColors.borderColor),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Tickets Management",
-                            style: context.textTheme.bodyMedium?.copyWith(
-                              fontSize: 23,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.white,
-                            ),
+    return BlocBuilder<SupportsTicketCubit, SupportsTicketState>(
+      builder: (context, state) {
+        if (state.bannersState == SupportsTicketStatus.loading) {
+          return Center(child: LoadingIndicator());
+        }
+        return Container(
+            padding: const EdgeInsets.all(14),
+            height: MediaQuery.of(context).size.height * 0.90,
+            decoration: BoxDecoration(
+              color: AppColors.bgColor,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: AppColors.borderColor),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Tickets Management",
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            fontSize: 23,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.white,
                           ),
-                          h0P5,
-                          Text(
-                            'Manage user accounts, roles, and permissions.',
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: context.textTheme.bodyMedium?.copyWith(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.titlaTextColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      SizedBox(
-                        width: 230,
-                        child: CustomInputField(
-                          controller: TextEditingController(),
-                          label: 'Search users...',
-                          prefixIcon: Container(
-                            margin: const EdgeInsets.only(left: 12.0, right: 8),
-                            child: SvgPicture.asset(
-                              'assets/images/svg/searchIcon.svg',
-                              color: AppColors.titlaTextColor,
-                              width: 16,
-                              height: 16,
-                            ),
-                          ),
-                          borderRadius: 6,
-                          borderColor: AppColors.borderColor,
-                          fillColor: AppColors.dialogBgColor,
-                          focusBorderColor: AppColors.borderColor,
-                          textColor: AppColors.white,
-                          hintColor: AppColors.titlaTextColor,
-                          horizontalPadding: 0,
-                          boxConstraints: 40,
                         ),
-                      ),
-                      w1,
-                      PrimaryButton(
-                        onPressed: () {
-                          // showAddNewUserDialog(context);
-                        },
-                        title: 'Add User',
-                        width: 120,
-                        height: 40,
-                        fontSize: 13,
-                        backgroundColor: AppColors.primaryColor,
-                        borderColor: AppColors.transparent,
-                      ),
-                    ],
-                  ),
-                  h2,
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: AppColors.borderColor,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: options.map((option) {
-                        final isSelected = selectedOption == option['label'];
-                        return Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 4),
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectedOption = option['label'];
-                                });
-                              },
-                              borderRadius: BorderRadius.circular(6),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 10),
-                                decoration: BoxDecoration(
-                                  color: isSelected
-                                      ? const Color(
-                                          0xFF121317) // Selected background
-                                      : Colors.transparent,
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        option['icon'],
-                                        color: isSelected
-                                            ? AppColors.white
-                                            : AppColors.titlaTextColor,
-                                        width: 16,
-                                        height: 16,
-                                      ),
-                                      const SizedBox(width: 6),
-                                      Text(
-                                        option['label'],
-                                        style: TextStyle(
-                                          color: isSelected
-                                              ? AppColors.white
-                                              : AppColors.titlaTextColor,
-                                          fontWeight: isSelected
-                                              ? FontWeight.w600
-                                              : FontWeight.normal,
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 6),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 6, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          color: isSelected
-                                              ? const Color(0xFF383A45)
-                                              : const Color(0xFF2D2F3A),
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                        child: Text(
-                                          option['count'].toString(),
-                                          style: TextStyle(
-                                            color: isSelected
-                                                ? AppColors.white
-                                                : AppColors.titlaTextColor,
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
+                        h0P5,
+                        Text(
+                          'Manage Tickets',
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.titlaTextColor,
                           ),
-                        );
-                      }).toList(),
+                        ),
+                      ],
                     ),
+                  ],
+                ),
+                h2,
+                Expanded(
+                  child: PaginatedTicketsTable(
+                    tickets: state.tickets,
+                    totalItems: state.totalItems,
                   ),
-                  h1,
-                  Expanded(
-                    child: PaginatedTicketsTable(
-                      tickets: state.tickets,
-                      totalItems: state.totalItems,
-                    ),
-                  ),
-                  // UsersDataTable(),
-                ],
-              ));
-        },
-      ),
+                ),
+              ],
+            ));
+      },
     );
   }
 }

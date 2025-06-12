@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oonique/modules/dashboard/view/base_view.dart';
 import 'package:oonique/utils/extensions/extended_context.dart';
 
 import '../../../../config/routes/nav_router.dart';
@@ -14,23 +15,24 @@ import '../../../../utils/validators/validators.dart';
 import '../../models/login_input_model.dart';
 import '../cubit/login_cubit.dart';
 
-class LoginDesktopPage extends StatelessWidget {
-  final Size size;
-  const LoginDesktopPage({super.key, required this.size});
+class LoginPage extends StatelessWidget {
+  const LoginPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginCubit(authRepository: sl()),
-      child: LoginDesktopView(size: size),
+      child: LoginDesktopView(),
     );
   }
 }
 
 class LoginDesktopView extends StatefulWidget {
-  final Size size;
-
-  const LoginDesktopView({Key? key, required this.size}) : super(key: key);
+  const LoginDesktopView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<LoginDesktopView> createState() => _LoginDesktopViewState();
@@ -60,7 +62,7 @@ class _LoginDesktopViewState extends State<LoginDesktopView> {
             emailController.clear();
             passwordController.clear();
 
-            NavRouter.pushAndRemoveUntil(context, '/dashboard/home');
+            NavRouter.push(context, BaseView());
           } else if (state.loginStatus == LoginStatus.error) {
             ToastLoader.remove();
             context.showSnackBar(state.errorMessage);
@@ -69,20 +71,19 @@ class _LoginDesktopViewState extends State<LoginDesktopView> {
         builder: (context, state) {
           return Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: widget.size.width * .08,
-              vertical: widget.size.height * .02,
+              horizontal: 12,
+              vertical: 12,
             ),
             child: Scaffold(
               body: Center(
                 child: Form(
                   key: _formKey,
-                  autovalidateMode:
-                      state.isAutoValidate
-                          ? AutovalidateMode.always
-                          : AutovalidateMode.disabled,
+                  autovalidateMode: state.isAutoValidate
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.disabled,
                   child: SingleChildScrollView(
                     padding: EdgeInsets.symmetric(
-                      horizontal: widget.size.width * .2,
+                      horizontal: 12,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -90,13 +91,11 @@ class _LoginDesktopViewState extends State<LoginDesktopView> {
                         Center(
                           child: Hero(
                             tag: 'logo',
-                            child: Image.asset(
-                              Assets.pngOoniqueLogo,
-                              width: widget.size.width * .2,
-                            ),
+                            child:
+                                Image.asset(Assets.pngOoniqueLogo, width: 12),
                           ),
                         ),
-                        SizedBox(height: widget.size.width * .02),
+                        SizedBox(height: 12),
                         Center(
                           child: Text(
                             "Welcome Admin",
@@ -133,11 +132,10 @@ class _LoginDesktopViewState extends State<LoginDesktopView> {
                               context.read<LoginCubit>().toggleShowPassword();
                             },
                           ),
-                          validator:
-                              (value) => Validators.password(
-                                value,
-                                "Password is Required",
-                              ),
+                          validator: (value) => Validators.password(
+                            value,
+                            "Password is Required",
+                          ),
                           obscureText: state.isPasswordHidden,
                         ),
                         Align(

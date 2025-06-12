@@ -16,9 +16,12 @@ import 'package:oonique/utils/display/display_utils.dart';
 import 'package:oonique/utils/extensions/extended_context.dart';
 
 import '../../../../../config/routes/nav_router.dart';
+import '../../../../../constants/app_colors.dart';
 import '../../../../../core/di/service_locator.dart';
 import '../../../../../generated/assets.dart';
-import '../../../../main_module/screens/banners/repositories/repo.dart';
+import '../../../../../ui/input/custom_input_field.dart';
+import '../../../../../ui/widgets/custom_dropdown_widget.dart';
+import '../../../repo/repo.dart';
 
 class UpdateBannerDialogue extends StatefulWidget {
   const UpdateBannerDialogue({super.key, this.model, required this.onSave});
@@ -64,221 +67,273 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+      backgroundColor: AppColors.dialogBgColor,
       child: BlocProvider(
-        create:
-            (context) =>
-                AddUpdateBannerCubit(bannersRepository: sl<BannersRepository>())
-                  ..getCategories(),
+        create: (context) =>
+            AddUpdateBannerCubit(bannersRepository: sl<BannersRepository>())
+              ..getCategories(),
         child: Container(
-          padding: EdgeInsets.all(14.0),
-          width:
-              MediaQuery.of(context).size.width >= 1100
-                  ? MediaQuery.of(context).size.width * 0.4
-                  : MediaQuery.of(context).size.width >= 850
-                  ? MediaQuery.of(context).size.width * 0.5
-                  : MediaQuery.of(context).size.width >= 650
-                  ? MediaQuery.of(context).size.width * 0.6
-                  : MediaQuery.of(context).size.width,
-          child: Form(
-            key: _formKey,
-            child: BlocBuilder<AddUpdateBannerCubit, AddUpdateBannerState>(
-              builder: (context, state) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        widget.model != null ? "Update Banner" : "Add Banner",
-                        style: context.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    PictureWidget(
-                      height: 150,
-                      width: 180,
-                      isEditable: true,
-                      radius: 12.0,
-                      onTap: () async {
-                        var result = await pickImageFileWeb();
-                        setState(() {
-                          fileBytes = result!["bytes"];
-                          fileName = result["fileName"];
-                        });
-                      },
-                      imageUrl:
-                          widget.model != null
-                              ? imageLink!
-                              : Assets.pngSaveImage,
-                      imageBytes: fileBytes,
-                      errorPath: Assets.pngImageNotFound,
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      "Title",
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 6.0),
-                    InputField(
-                      controller: titleController,
-                      label: "Title",
-                      textInputAction: TextInputAction.next,
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      "Description",
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 6.0),
-                    InputField(
-                      controller: descriptionController,
-                      label: "Description",
-                      textInputAction: TextInputAction.next,
-                    ),
-                    SizedBox(height: 8.0),
-
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-
-                            children: [
-                              Text(
-                                "Sub Title",
-                                style: context.textTheme.bodyMedium?.copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 6.0),
-                              InputField(
-                                controller: subTitleController,
-                                label: "Sub Title",
-                                textInputAction: TextInputAction.next,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 8.0),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-
-                            children: [
-                              Text(
-                                "Banner Link",
-                                style: context.textTheme.bodyMedium?.copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 6.0),
-                              InputField(
-                                controller: bannerLinkController,
-                                label: "Banner Link",
-                                textInputAction: TextInputAction.next,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Category",
-                          style: context.textTheme.bodyMedium?.copyWith(
-                            color: Colors.black,
+          width: 515,
+          padding:
+              const EdgeInsets.only(top: 23.0, left: 20, right: 20, bottom: 20),
+          decoration: BoxDecoration(
+            color: AppColors.dialogBgColor,
+            borderRadius: BorderRadius.circular(8.0),
+            border: Border.all(color: AppColors.borderColor, width: 1.0),
+          ),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: BlocBuilder<AddUpdateBannerCubit, AddUpdateBannerState>(
+                builder: (context, state) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          widget.model != null ? "Update Banner" : "Add Banner",
+                          style: context.textTheme.headlineSmall?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 6.0),
-                        CustomDropDown(
-                          height: 60.0,
-                          hint: "Select Category",
-                          items: state.categories?.uniqueValues ?? [],
-                          onSelect: (v) {
-                            selectedCategory = v;
-                          },
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Status",
-                                style: context.textTheme.bodyMedium?.copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+                      ),
+                      SizedBox(height: 8.0),
+                      PictureWidget(
+                        height: 150,
+                        width: 180,
+                        isEditable: true,
+                        radius: 12.0,
+                        onTap: () async {
+                          var result = await pickImageFileWeb();
+                          setState(() {
+                            fileBytes = result!["bytes"];
+                            fileName = result["fileName"];
+                          });
+                        },
+                        imageUrl: widget.model != null
+                            ? imageLink!
+                            : Assets.pngSaveImage,
+                        imageBytes: fileBytes,
+                        errorPath: Assets.pngImageNotFound,
+                      ),
+                      SizedBox(height: 8.0),
+                      Text(
+                        "Title",
+                        style: context.textTheme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12),
+                      ),
+                      SizedBox(height: 6.0),
+                      CustomInputField(
+                        horizontalPadding: 8,
+                        hintColor: AppColors.titlaTextColor,
+                        textColor: AppColors.white,
+                        focusBorderColor: AppColors.borderColor,
+                        controller: titleController,
+                        textInputAction: TextInputAction.done,
+                        label: 'Title',
+                        borderColor: AppColors.borderColor,
+                        borderRadius: 3,
+                        fillColor: AppColors.dialogBgColor,
+                        boxConstraints: 10,
+                      ),
+                      SizedBox(height: 8.0),
+                      Text(
+                        "Description",
+                        style: context.textTheme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12),
+                      ),
+                      SizedBox(height: 6.0),
+                      CustomInputField(
+                        horizontalPadding: 8,
+                        hintColor: AppColors.titlaTextColor,
+                        textColor: AppColors.white,
+                        focusBorderColor: AppColors.borderColor,
+                        controller: descriptionController,
+                        textInputAction: TextInputAction.done,
+                        label: 'Description',
+                        borderColor: AppColors.borderColor,
+                        borderRadius: 3,
+                        fillColor: AppColors.dialogBgColor,
+                        boxConstraints: 10,
+                      ),
+                      SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Sub Title",
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12),
                                 ),
-                              ),
-                              SizedBox(height: 6.0),
-                              CustomDropDown(
-                                height: 60.0,
-                                hint: "Select Status",
-                                items: ["Active", "InActive"],
-                                onSelect: (v) {
-                                  if (v == "Active") {
-                                    status = true;
-                                  } else {
-                                    status = false;
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 8.0),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Display Order",
-                                style: context.textTheme.bodyMedium?.copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+                                SizedBox(height: 6.0),
+                                CustomInputField(
+                                  horizontalPadding: 8,
+                                  hintColor: AppColors.titlaTextColor,
+                                  textColor: AppColors.white,
+                                  focusBorderColor: AppColors.borderColor,
+                                  controller: subTitleController,
+                                  textInputAction: TextInputAction.done,
+                                  label: 'Sub Title',
+                                  borderColor: AppColors.borderColor,
+                                  borderRadius: 3,
+                                  fillColor: AppColors.dialogBgColor,
+                                  boxConstraints: 10,
                                 ),
-                              ),
-                              SizedBox(height: 6.0),
-                              InputField(
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly,
-                                ],
-                                controller: displayNumberController,
-                                label: "Display OrderTitle",
-                                textInputAction: TextInputAction.done,
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: PrimaryButton(
-                            height: 40.0,
+                          SizedBox(width: 8.0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Banner Link",
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12),
+                                ),
+                                SizedBox(height: 6.0),
+                                CustomInputField(
+                                  horizontalPadding: 8,
+                                  hintColor: AppColors.titlaTextColor,
+                                  textColor: AppColors.white,
+                                  focusBorderColor: AppColors.borderColor,
+                                  controller: bannerLinkController,
+                                  textInputAction: TextInputAction.next,
+                                  label: 'Banner Link',
+                                  borderColor: AppColors.borderColor,
+                                  borderRadius: 3,
+                                  fillColor: AppColors.dialogBgColor,
+                                  boxConstraints: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Category",
+                            style: context.textTheme.bodyMedium?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12),
+                          ),
+                          SizedBox(height: 6.0),
+                          CustomDropdownWidget(
+                            items: state.categories?.uniqueValues ?? [],
+                            onChanged: (v) {
+                              selectedCategory = v;
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Status",
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12),
+                                ),
+                                SizedBox(height: 6.0),
+                                CustomDropdownWidget(
+                                  items: ["Active", "InActive"],
+                                  onChanged: (v) {
+                                    if (v == "Active") {
+                                      status = true;
+                                    } else {
+                                      status = false;
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 8.0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Display Order",
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12),
+                                ),
+                                SizedBox(height: 6.0),
+                                CustomInputField(
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
+                                  horizontalPadding: 8,
+                                  hintColor: AppColors.titlaTextColor,
+                                  textColor: AppColors.white,
+                                  focusBorderColor: AppColors.borderColor,
+                                  controller: displayNumberController,
+                                  textInputAction: TextInputAction.done,
+                                  label: 'Display OrderTitle',
+                                  borderColor: AppColors.borderColor,
+                                  borderRadius: 3,
+                                  fillColor: AppColors.dialogBgColor,
+                                  boxConstraints: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          PrimaryButton(
+                            onPressed: () {
+                              NavRouter.pop(context);
+                            },
                             hMargin: 0,
+                            vMargin: 0,
+                            title: 'Cancel',
+                            backgroundColor: AppColors.dialogBgColor,
+                            bborderColor: AppColors.borderColor,
+                            titleColor: AppColors.white,
+                            height: 38,
+                            width: 120,
+                            fontSize: 12,
+                          ),
+                          SizedBox(width: 12.0),
+                          PrimaryButton(
+                            fontSize: 12,
+                            hMargin: 0,
+                            vMargin: 0,
+                            height: 38,
+                            width: 120,
+                            backgroundColor: AppColors.primaryColor,
+                            titleColor: AppColors.white,
                             onPressed: () async {
                               if (_formKey.currentState!.validate() &&
                                   selectedCategory != null) {
@@ -313,29 +368,14 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                                 );
                               }
                             },
-                            title: widget.model != null ? "Update" : "Save",
+                            title: "Save changes",
                           ),
-                        ),
-                        SizedBox(width: 8.0),
-                        Expanded(
-                          child: PrimaryOutlineButton(
-                            onPressed: () {
-                              NavRouter.pop(context);
-                            },
-                            backgroundColor: Colors.transparent,
-                            height: 40.0,
-                            borderColor: Color(0xffEA6055),
-                            width: 2.0,
-                            titleColor: Color(0xffEA6055),
-                            title: "Cancel",
-                            hMargin: 0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              },
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),
