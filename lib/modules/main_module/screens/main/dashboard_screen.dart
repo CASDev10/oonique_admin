@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oonique/modules/main/screens/banners/pages/banners_page.dart';
-import 'package:oonique/modules/main/screens/support/pages/support_page.dart';
+import 'package:oonique/modules/main_module/screens/banners/pages/banners_page.dart';
+import 'package:oonique/modules/dashboard/view/support/pages/support_page.dart';
 
 import '../../../../app/page_not_found.dart';
 import '../../../../config/routes/nav_router.dart';

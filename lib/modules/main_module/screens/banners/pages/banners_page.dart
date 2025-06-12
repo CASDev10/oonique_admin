@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:oonique/modules/main/screens/banners/pages/banner_ads_desktop.dart';
-import 'package:oonique/modules/main/screens/banners/pages/banner_ads_mobile.dart';
+import 'package:oonique/modules/main_module/screens/banners/pages/banner_ads_desktop.dart';
+import 'package:oonique/modules/main_module/screens/banners/pages/banner_ads_mobile.dart';
 
 import '../../../../../responsive.dart';
 

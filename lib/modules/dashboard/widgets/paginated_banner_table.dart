@@ -8,7 +8,7 @@ import 'package:pluto_grid/pluto_grid.dart';
 import '../../../config/routes/nav_router.dart';
 import '../../../constants/api_endpoints.dart';
 import '../../../ui/widgets/helper_function.dart';
-import '../../main/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
+import '../../main_module/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import '../view/banner/models/get_banners_response.dart';
 
 class PaginatedBannersTable extends StatefulWidget {

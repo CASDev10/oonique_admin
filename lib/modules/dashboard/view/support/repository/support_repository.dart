@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:oonique/modules/main/screens/support/models/update_support_response.dart';
+import 'package:oonique/modules/dashboard/view/support/models/update_support_response.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
 
 import '../../../../../constants/api_endpoints.dart';

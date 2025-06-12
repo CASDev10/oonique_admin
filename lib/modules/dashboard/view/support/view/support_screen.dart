@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:oonique/modules/dashboard/view/support/cubits/support_cubits.dart';
+import 'package:oonique/modules/dashboard/view/support/widget/ticket_table.dart';
 import 'package:oonique/ui/input/custom_input_field.dart';
-import 'package:oonique/ui/input/input_field.dart';
 import 'package:oonique/ui/widgets/primary_button.dart';
 import 'package:oonique/utils/heights_and_widths.dart';
 import 'package:oonique/utils/utils.dart';
-
-import '../../../../../config/routes/nav_router.dart';
 import '../../../../../constants/app_colors.dart';
 import '../../../../../core/di/service_locator.dart';
 import '../../../../../ui/widgets/loading_indicator.dart';
-import '../../../../main_module/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
-import '../../../../main_module/screens/banners/cubit/banner_ads_cubit.dart';
-import '../../../../main_module/screens/banners/repositories/repo.dart';
-import '../../../widgets/paginated_banner_table.dart';
-import '../widgets/update_banner_dialogue.dart';
+import '../repository/support_repository.dart';
 
-class BannerScreen extends StatelessWidget {
-  const BannerScreen({super.key, required this.size});
+class SupportScreen extends StatelessWidget {
+  const SupportScreen({super.key, required this.size});
   final Size size;
   @override
   Widget build(BuildContext context) {
@@ -26,29 +21,25 @@ class BannerScreen extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-              BannerAdsCubit(bannersRepository: sl<BannersRepository>()),
-        ),
-        BlocProvider(
-          create: (context) => AddUpdateBannerCubit(
-            bannersRepository: sl<BannersRepository>(),
-          ),
+              SupportsTicketCubit(supportRepository: sl<SupportRepository>())
+                ..getAllTickets(),
         ),
       ],
-      child: BannerScreenView(size: size),
+      child: SupportScreenView(size: size),
     );
   }
 }
 
-class BannerScreenView extends StatefulWidget {
+class SupportScreenView extends StatefulWidget {
   final Size? size;
 
-  const BannerScreenView({super.key, this.size});
+  const SupportScreenView({super.key, this.size});
 
   @override
-  State<BannerScreenView> createState() => _BannerScreenViewState();
+  State<SupportScreenView> createState() => _SupportScreenViewState();
 }
 
-class _BannerScreenViewState extends State<BannerScreenView> {
+class _SupportScreenViewState extends State<SupportScreenView> {
   List<Map<String, dynamic>> options = [
     {
       'label': 'All',
@@ -72,36 +63,36 @@ class _BannerScreenViewState extends State<BannerScreenView> {
     },
   ];
 
-  void showAddNewUserDialog(
-    BuildContext context,
-  ) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) => UpdateBannerDialogue(
-        onSave: (input) {
-          context
-              .read<AddUpdateBannerCubit>()
-              .addUpdateBanners(input)
-              .then((v) {
-            NavRouter.pop(context);
-          });
-        },
-      ),
-    ).then((v) {
-      context.read<BannerAdsCubit>().getAllBanners();
-    });
-  }
+  // void showAddNewUserDialog(
+  //   BuildContext context,
+  // ) {
+  //   showDialog(
+  //     barrierDismissible: false,
+  //     context: context,
+  //     builder: (context) => UpdateBannerDialogue(
+  //       onSave: (input) {
+  //         context
+  //             .read<AddUpdateBannerCubit>()
+  //             .addUpdateBanners(input)
+  //             .then((v) {
+  //           NavRouter.pop(context);
+  //         });
+  //       },
+  //     ),
+  //   ).then((v) {
+  //     context.read<BannerAdsCubit>().getAllBanners();
+  //   });
+  // }
 
   String selectedOption = 'All';
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: BlocBuilder<BannerAdsCubit, BannerAdsState>(
+      child: BlocBuilder<SupportsTicketCubit, SupportsTicketState>(
         builder: (context, state) {
-          if (state.bannersState == BannerAdsStatus.loading) {
-            return LoadingIndicator();
+          if (state.bannersState == SupportsTicketStatus.loading) {
+            return Center(child: LoadingIndicator());
           }
           return Container(
               padding: const EdgeInsets.all(14),
@@ -121,7 +112,7 @@ class _BannerScreenViewState extends State<BannerScreenView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Users',
+                            "Tickets Management",
                             style: context.textTheme.bodyMedium?.copyWith(
                               fontSize: 23,
                               fontWeight: FontWeight.w700,
@@ -169,7 +160,7 @@ class _BannerScreenViewState extends State<BannerScreenView> {
                       w1,
                       PrimaryButton(
                         onPressed: () {
-                          showAddNewUserDialog(context);
+                          // showAddNewUserDialog(context);
                         },
                         title: 'Add User',
                         width: 120,
@@ -271,28 +262,9 @@ class _BannerScreenViewState extends State<BannerScreenView> {
                   ),
                   h1,
                   Expanded(
-                    child: PaginatedBannersTable(
-                      onDelete: (v) async {
-                        await context
-                            .read<BannerAdsCubit>()
-                            .deleteBanner(v)
-                            .then((v) async {
-                          await context.read<BannerAdsCubit>().getAllBanners();
-                        });
-                      },
+                    child: PaginatedTicketsTable(
+                      tickets: state.tickets,
                       totalItems: state.totalItems,
-                      onNext: (v) async {
-                        await context.read<BannerAdsCubit>().getAllBanners(
-                              page: v,
-                            );
-                      },
-                      onPrevious: (v) async {
-                        await context.read<BannerAdsCubit>().getAllBanners(
-                              page: v,
-                            );
-                      },
-                      size: widget.size ?? MediaQuery.of(context).size,
-                      banners: state.allBanners,
                     ),
                   ),
                   // UsersDataTable(),

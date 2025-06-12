@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oonique/modules/main/screens/support/pages/support_page_mobile.dart';
-import 'package:oonique/modules/main/screens/support/repository/support_repository.dart';
+import 'package:oonique/modules/dashboard/view/support/pages/support_page_mobile.dart';
+import 'package:oonique/modules/dashboard/view/support/repository/support_repository.dart';
+import 'package:oonique/modules/dashboard/view/support/widget/ticket_table.dart';
 import 'package:oonique/ui/widgets/loading_indicator.dart';
 import 'package:oonique/utils/extensions/extended_context.dart';
 
@@ -16,10 +17,9 @@ class SupportPageDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (context) =>
-              SupportsTicketCubit(supportRepository: sl<SupportRepository>())
-                ..getAllTickets(),
+      create: (context) =>
+          SupportsTicketCubit(supportRepository: sl<SupportRepository>())
+            ..getAllTickets(),
       child: SupportPageDesktopView(size: size),
     );
   }
@@ -55,7 +55,6 @@ class _SupportPageDesktopViewState extends State<SupportPageDesktopView> {
               Expanded(
                 child: PaginatedTicketsTable(
                   tickets: state.tickets,
-                  size: widget.size,
                   totalItems: state.totalItems,
                 ),
               ),

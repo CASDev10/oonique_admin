@@ -117,26 +117,26 @@ Future<MultipartFile> changeMultiFromBytes({
   );
 }
 
-double getCellSpacingSupport(BuildContext context, Size size) {
-  double width = size.width;
+// double getCellSpacingSupport(BuildContext context, Size size) {
+//   double width = size.width;
 
-  if (width >= 1100) {
-    return width * 0.09; // Desktop
-  } else if (width >= 850) {
-    return width * 0.11; // Tablet
-  } else {
-    return width * 0.17; // Mobile
-  }
-}
+//   if (width >= 1100) {
+//     return width * 0.09; // Desktop
+//   } else if (width >= 850) {
+//     return width * 0.11; // Tablet
+//   } else {
+//     return width * 0.17; // Mobile
+//   }
+// }
 
-double getIdCellSpacingSupport(BuildContext context, Size size) {
-  double width = size.width;
+// double getIdCellSpacingSupport(BuildContext context, Size size) {
+//   double width = size.width;
 
-  if (width >= 1100) {
-    return width * 0.06; // Desktop
-  } else if (width >= 850) {
-    return width * 0.08; // Tablet
-  } else {
-    return width * 0.12; // Mobile
-  }
-}
+//   if (width >= 1100) {
+//     return width * 0.06; // Desktop
+//   } else if (width >= 850) {
+//     return width * 0.08; // Tablet
+//   } else {
+//     return width * 0.12; // Mobile
+//   }
+// }

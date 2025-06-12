@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oonique/modules/main/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
-import 'package:oonique/modules/main/screens/banners/cubit/banner_ads_cubit.dart';
+import 'package:oonique/modules/main_module/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
+import 'package:oonique/modules/main_module/screens/banners/cubit/banner_ads_cubit.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/get_banners_response.dart';
-import 'package:oonique/modules/main/screens/banners/repositories/repo.dart';
+import 'package:oonique/modules/main_module/screens/banners/repositories/repo.dart';
 import 'package:oonique/modules/dashboard/view/banner/widgets/update_banner_dialogue.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
 import 'package:oonique/ui/widgets/loading_indicator.dart';

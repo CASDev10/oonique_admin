@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:oonique/modules/main/screens/support/pages/support_page_desktop.dart';
-import 'package:oonique/modules/main/screens/support/pages/support_page_mobile.dart';
+import 'package:oonique/modules/dashboard/view/support/pages/support_page_desktop.dart';
+import 'package:oonique/modules/dashboard/view/support/pages/support_page_mobile.dart';
 
 import '../../../../../responsive.dart';
 

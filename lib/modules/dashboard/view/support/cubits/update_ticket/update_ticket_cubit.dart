@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oonique/modules/main/screens/support/repository/support_repository.dart';
+import 'package:oonique/modules/dashboard/view/support/repository/support_repository.dart';
 
 import '../../../../../../core/exceptions/api_error.dart';
 import '../../../../../../utils/logger/logger.dart';

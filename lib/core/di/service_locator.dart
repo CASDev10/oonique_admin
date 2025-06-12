@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:oonique/modules/main/screens/banners/repositories/repo.dart';
-import 'package:oonique/modules/main/screens/support/repository/support_repository.dart';
+import 'package:oonique/modules/main_module/screens/banners/repositories/repo.dart';
+import 'package:oonique/modules/dashboard/view/support/repository/support_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../config/environment.dart';

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:oonique/constants/api_endpoints.dart';
-import 'package:oonique/modules/main/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
+import 'package:oonique/modules/main_module/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/add_banner_input.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/get_banners_response.dart';
 import 'package:oonique/ui/input/input_field.dart';
@@ -18,7 +18,7 @@ import 'package:oonique/utils/extensions/extended_context.dart';
 import '../../../../../config/routes/nav_router.dart';
 import '../../../../../core/di/service_locator.dart';
 import '../../../../../generated/assets.dart';
-import '../../../../main/screens/banners/repositories/repo.dart';
+import '../../../../main_module/screens/banners/repositories/repo.dart';
 
 class UpdateBannerDialogue extends StatefulWidget {
   const UpdateBannerDialogue({super.key, this.model, required this.onSave});

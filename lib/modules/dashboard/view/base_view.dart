@@ -4,6 +4,7 @@ import 'package:oonique/modules/dashboard/widgets/custom_header.dart';
 import 'package:oonique/modules/dashboard/widgets/side_drawer.dart';
 
 import '../../../constants/app_colors.dart';
+import 'support/view/support_screen.dart';
 
 class BaseView extends StatefulWidget {
   @override
@@ -47,7 +48,7 @@ late Map<String, Widget> _screens;
     _screens = {
       "Home": Container(),
       "Banners": BannerScreen(size: screenSize),
-      "Support": Container(),
+      "Support": SupportScreen(size: screenSize),
     };
     return Scaffold(
       backgroundColor: AppColors.black,

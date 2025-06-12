@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../modules/authentication/login/screens/login_screen.dart';
-import '../../modules/main/screens/main/dashboard_screen.dart';
+import '../../modules/main_module/screens/main/dashboard_screen.dart';
 import '../../modules/startup/splash_page.dart';
 import '../../ui/widgets/not_found_page.dart';
 
