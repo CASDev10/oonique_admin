@@ -165,7 +165,7 @@ class Assets {
   static const String pngOoniqueLogo = 'assets/images/png/oonique_logo.png';
   static const String pngPdf = 'assets/images/png/pdf.png';
   static const String pngPlaceholder = 'assets/images/png/placeholder.jpg';
-  static const String pngSaveImage = 'assets/images/png/save_image.png';
+  static const String pngSaveImage = 'assets/images/png/imagee.png';
   static const String pngTodoLogo = 'assets/images/png/todo_logo.png';
   static const String pngUser = 'assets/images/png/user.png';
   static const String repositoriesAuthRepository =

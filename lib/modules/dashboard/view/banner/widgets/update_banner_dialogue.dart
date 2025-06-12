@@ -7,14 +7,11 @@ import 'package:oonique/constants/api_endpoints.dart';
 import 'package:oonique/modules/main_module/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/add_banner_input.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/get_banners_response.dart';
-import 'package:oonique/ui/input/input_field.dart';
-import 'package:oonique/ui/widgets/custom_dropdown.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
 import 'package:oonique/ui/widgets/picture_widget.dart';
 import 'package:oonique/ui/widgets/primary_button.dart';
 import 'package:oonique/utils/display/display_utils.dart';
 import 'package:oonique/utils/extensions/extended_context.dart';
-
 import '../../../../../config/routes/nav_router.dart';
 import '../../../../../constants/app_colors.dart';
 import '../../../../../core/di/service_locator.dart';
@@ -92,12 +89,12 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Align(
-                        alignment: Alignment.center,
+                        alignment: Alignment.topLeft,
                         child: Text(
                           widget.model != null ? "Update Banner" : "Add Banner",
                           style: context.textTheme.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.white),
                         ),
                       ),
                       SizedBox(height: 8.0),

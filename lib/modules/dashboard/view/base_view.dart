@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oonique/modules/dashboard/view/banner/view/banner_screen.dart';
+import 'package:oonique/modules/dashboard/view/home/home_screen.dart';
 import 'package:oonique/modules/dashboard/widgets/custom_header.dart';
 import 'package:oonique/modules/dashboard/widgets/side_drawer.dart';
 
@@ -46,7 +47,7 @@ late Map<String, Widget> _screens;
       final Size screenSize = MediaQuery.of(context).size;
 
     _screens = {
-      "Home": Container(),
+      "Home": HomeScreen(),
       "Banners": BannerScreen(),
       "Support": SupportScreen(),
     };

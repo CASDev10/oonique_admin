@@ -94,6 +94,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:oonique/constants/app_colors.dart';
 import 'package:oonique/utils/extensions/extended_context.dart';
 
 import 'circular_cached_image.dart';
@@ -130,7 +131,8 @@ class PictureWidget extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.withOpacity(.5)),
+          color: AppColors.dialogBgColor,
+          border: Border.all(color:AppColors.borderColor),
           borderRadius: BorderRadius.circular(radius),
           image: DecorationImage(
             fit: BoxFit.cover,
@@ -154,6 +156,7 @@ class PictureWidget extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
+          color: AppColors.dialogBgColor,
           border: Border.all(color: Colors.grey.withOpacity(.5)),
           borderRadius: BorderRadius.circular(radius),
           image: DecorationImage(
