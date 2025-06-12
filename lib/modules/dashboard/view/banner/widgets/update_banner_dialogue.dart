@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:oonique/constants/api_endpoints.dart';
-import 'package:oonique/modules/main_module/screens/banners/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/add_banner_input.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/get_banners_response.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
@@ -19,6 +18,7 @@ import '../../../../../generated/assets.dart';
 import '../../../../../ui/input/custom_input_field.dart';
 import '../../../../../ui/widgets/custom_dropdown_widget.dart';
 import '../../../repo/repo.dart';
+import '../cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 
 class UpdateBannerDialogue extends StatefulWidget {
   const UpdateBannerDialogue({super.key, this.model, required this.onSave});
@@ -126,6 +126,7 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                       ),
                       SizedBox(height: 6.0),
                       CustomInputField(
+                        titleSize: 13,
                         horizontalPadding: 8,
                         hintColor: AppColors.titlaTextColor,
                         textColor: AppColors.white,
@@ -148,6 +149,7 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                       ),
                       SizedBox(height: 6.0),
                       CustomInputField(
+                        titleSize: 13,
                         horizontalPadding: 8,
                         hintColor: AppColors.titlaTextColor,
                         textColor: AppColors.white,
@@ -176,6 +178,7 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                                 ),
                                 SizedBox(height: 6.0),
                                 CustomInputField(
+                                  titleSize: 13,
                                   horizontalPadding: 8,
                                   hintColor: AppColors.titlaTextColor,
                                   textColor: AppColors.white,
@@ -205,6 +208,7 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                                 ),
                                 SizedBox(height: 6.0),
                                 CustomInputField(
+                                  titleSize: 13,
                                   horizontalPadding: 8,
                                   hintColor: AppColors.titlaTextColor,
                                   textColor: AppColors.white,
@@ -284,6 +288,7 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                                 ),
                                 SizedBox(height: 6.0),
                                 CustomInputField(
+                                  titleSize: 13,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.digitsOnly,
                                   ],

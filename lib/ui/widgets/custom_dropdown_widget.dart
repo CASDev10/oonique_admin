@@ -40,7 +40,7 @@ class _CustomDropdownWidgetState extends State<CustomDropdownWidget> {
           value: selectedValue,
           hint: const Text(
             'Select Status',
-            style: TextStyle(color: AppColors.titlaTextColor),
+            style: TextStyle(color: AppColors.titlaTextColor,  fontSize: 13,),
             overflow: TextOverflow.ellipsis,
           ),
           items: widget.items.map((item) {
