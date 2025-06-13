@@ -201,7 +201,7 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Banner Link",
+                                  "Banner Link (Optional)",
                                   style: context.textTheme.bodyMedium?.copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w700,
@@ -364,8 +364,7 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                                 }
 
                                 await widget.onSave(input);
-                                // Refresh the banner list after successful update
-                                await context.read<BannerAdsCubit>().getAllBanners();
+                                // await context.read<BannerAdsCubit>().getAllBanners();
                               } else {
                                 DisplayUtils.showSnackBar(
                                   context,

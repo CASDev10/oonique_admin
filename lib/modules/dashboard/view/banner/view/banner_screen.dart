@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oonique/modules/dashboard/view/banner/models/add_banner_response.dart';
 import 'package:oonique/ui/widgets/primary_button.dart';
 import 'package:oonique/utils/heights_and_widths.dart';
 import 'package:oonique/utils/utils.dart';
@@ -22,11 +23,7 @@ class BannerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) =>
-              BannerAdsCubit(bannersRepository: sl<BannersRepository>())
-                ..getAllBanners(),
-        ),
+       
         BlocProvider(
           create: (context) => AddUpdateBannerCubit(
             bannersRepository: sl<BannersRepository>(),
@@ -48,6 +45,12 @@ class BannerScreenView extends StatefulWidget {
 }
 
 class _BannerScreenViewState extends State<BannerScreenView> {
+
+  @override
+  void initState() {
+   context.read<BannerAdsCubit>().getAllBanners();
+    super.initState();
+  }
   void showAddNewUserDialog(
     BuildContext context,
   ) {
@@ -65,7 +68,11 @@ class _BannerScreenViewState extends State<BannerScreenView> {
         },
       ),
     ).then((v) {
-      context.read<BannerAdsCubit>().getAllBanners();
+      Future.microtask(() {
+        if (context.mounted) {
+          context.read<BannerAdsCubit>().getAllBanners();
+        }
+      });
     });
   }
 
@@ -151,11 +158,14 @@ class _BannerScreenViewState extends State<BannerScreenView> {
                           await context
                               .read<BannerAdsCubit>()
                               .deleteBanner(v)
-                              .then((v) async {
-                            await context
-                                .read<BannerAdsCubit>()
-                                .getAllBanners();
+                              .then((_) {
+                            Future.microtask(() {
+                              if (context.mounted) {
+                                context.read<BannerAdsCubit>().getAllBanners();
+                              }
+                            });
                           });
+                          ;
                         },
                         totalItems: state.totalItems,
                         onNext: (v) async {

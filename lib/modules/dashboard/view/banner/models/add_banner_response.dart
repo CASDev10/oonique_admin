@@ -8,20 +8,35 @@ String addBannerResponseToJson(AddBannerResponse data) =>
 
 class AddBannerResponse {
   String result;
-  Data data;
+  // Data data;
 
-  AddBannerResponse({required this.result, required this.data});
+  AddBannerResponse({required this.result, 
+  // required this.data
+  
+  });
 
   AddBannerResponse copyWith({String? result, Data? data}) =>
-      AddBannerResponse(result: result ?? this.result, data: data ?? this.data);
+      AddBannerResponse(result: result ?? this.result, 
+      
+      
+      // data: data ?? this.data
+      
+      
+      );
 
   factory AddBannerResponse.fromJson(Map<String, dynamic> json) =>
       AddBannerResponse(
         result: json["result"],
-        data: Data.fromJson(json["data"]),
+        // data: Data.fromJson(json["data"]),
       );
 
-  Map<String, dynamic> toJson() => {"result": result, "data": data.toJson()};
+  Map<String, dynamic> toJson() => {"result": result, 
+  
+  
+  
+  // "data": data.toJson()
+  
+  };
 }
 
 class Data {

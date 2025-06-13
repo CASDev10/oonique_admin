@@ -212,7 +212,6 @@ class _PaginatedBannersTableState extends State<PaginatedBannersTable> {
                 final rowId = row.cells['id']?.value;
                 debugPrint('Edit pressed for ID: $rowId');
               } else if (value == 'delete') {
-                // 🗑️ Handle delete logic
                 final rowId = row.cells['id']?.value;
                 debugPrint('Delete pressed for ID: $rowId');
               }
@@ -239,7 +238,9 @@ class _PaginatedBannersTableState extends State<PaginatedBannersTable> {
                         });
                       },
                     ),
-                  );
+                  ).then((v) {
+                    context.read<BannerAdsCubit>().getAllBanners();
+                  });
                 },
               ),
               PopupMenuItem(
@@ -251,9 +252,7 @@ class _PaginatedBannersTableState extends State<PaginatedBannersTable> {
                   ),
                 ),
                 onTap: () async {
-                  await widget.onDelete!(model.id).then((v) async {
-                    await context.read<BannerAdsCubit>().getAllBanners();
-                  });
+                  await widget.onDelete!(model.id);
                 },
               ),
             ],
