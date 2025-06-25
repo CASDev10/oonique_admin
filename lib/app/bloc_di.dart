@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oonique/modules/dashboard/view/support/repository/support_repository.dart';
+
 import '../core/core.dart';
-import '../modules/dashboard/view/banner/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import '../modules/dashboard/repo/repo.dart';
+import '../modules/dashboard/view/banner/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import '../modules/dashboard/view/banner/cubit/banner_ads_cubit.dart';
 import '../modules/dashboard/view/support/cubits/support_cubits.dart';
 import '../modules/dashboard/view/support/cubits/update_ticket/update_ticket_cubit.dart';
@@ -40,6 +41,10 @@ class BlocDI extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 BannerAdsCubit(bannersRepository: sl<BannersRepository>())),
+        BlocProvider(
+          create: (context) =>
+              SupportsTicketCubit(supportRepository: sl<SupportRepository>()),
+        )
       ],
       child: child,
     );

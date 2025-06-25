@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oonique/config/config.dart';
 import 'package:oonique/constants/app_colors.dart';
-import 'package:oonique/modules/dashboard/view/support/cubits/support_cubits.dart';
-import 'package:oonique/utils/display/display_utils.dart';
 import 'package:oonique/utils/utils.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
-import '../../../../../ui/widgets/on_click.dart';
 import '../models/all_support_response.dart';
-import 'add_response_dialogue.dart';
 
 class PaginatedTicketsTable extends StatefulWidget {
   PaginatedTicketsTable({
@@ -162,117 +156,234 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
         enableContextMenu: false,
         renderer: (rendererContext) {
           SupportResponseModel model = rendererContext.cell.value;
-          return PopupMenuButton<String>(
-            color: AppColors.bgColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-              side: const BorderSide(color: AppColors.borderColor, width: 1),
-            ),
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 'view',
-                child: Text(
-                  'View',
-                  style: context.textTheme.titleSmall?.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-                onTap: () {
-                  if (model.images.isNotEmpty) {
-                    showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (context) => Dialog(
-                        backgroundColor: AppColors.dialogBgColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
+
+          // return PopupMenuButton<String>(
+          //   color: AppColors.bgColor,
+          //   shape: RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.circular(6),
+          //     side: const BorderSide(color: AppColors.borderColor, width: 1),
+          //   ),
+          //   itemBuilder: (context) => [
+          //     PopupMenuItem(
+          //       value: 'view',
+          //       child: Text(
+          //         'View',
+          //         style: context.textTheme.titleSmall?.copyWith(
+          //           color: Colors.white,
+          //         ),
+          //       ),
+          //       onTap: () {
+          //         if (model.images.isNotEmpty) {
+          //           showDialog(
+          //             barrierDismissible: false,
+          //             context: context,
+          //             builder: (context) => Dialog(
+          //               backgroundColor: AppColors.dialogBgColor,
+          //               shape: RoundedRectangleBorder(
+          //                   borderRadius: BorderRadius.circular(8.0)),
+          //               child: Container(
+          //                 padding: EdgeInsets.all(14.0),
+          //                 width: 500,
+          //                 child: Column(
+          //                   crossAxisAlignment: CrossAxisAlignment.start,
+          //                   mainAxisSize: MainAxisSize.min,
+          //                   children: [
+          //                     Row(
+          //                       mainAxisAlignment:
+          //                           MainAxisAlignment.spaceBetween,
+          //                       children: [
+          //                         Text(
+          //                           "Attachment Pictures",
+          //                           style: context.textTheme.headlineSmall
+          //                               ?.copyWith(
+          //                             color: AppColors.white,
+          //                             fontWeight: FontWeight.bold,
+          //                           ),
+          //                         ),
+          //                         OnClick(
+          //                           onTap: () {
+          //                             NavRouter.pop(context);
+          //                           },
+          //                           child: Container(
+          //                             decoration: BoxDecoration(
+          //                               borderRadius: BorderRadius.circular(
+          //                                 100.0,
+          //                               ),
+          //                               border: Border.all(
+          //                                 color: Colors.white,
+          //                               ),
+          //                             ),
+          //                             child: Icon(
+          //                               Icons.close,
+          //                               size: 16.0,
+          //                               color: AppColors.white,
+          //                             ),
+          //                           ),
+          //                         ),
+          //                       ],
+          //                     ),
+          //                     SizedBox(height: 8.0),
+          //                     SingleChildScrollView(
+          //                       child: Column(
+          //                         children: model.images.map((image) {
+          //                           return _imageSection(
+          //                             "http://202.166.170.246:4300/${image.image}",
+          //                           );
+          //                         }).toList(),
+          //                       ),
+          //                     ),
+          //                   ],
+          //                 ),
+          //               ),
+          //             ),
+          //           );
+          //         } else {
+          //           DisplayUtils.showSnackBar(
+          //             context,
+          //             "No Image Attachments",
+          //           );
+          //         }
+          //       },
+          //     ),
+          //     PopupMenuItem(
+          //       value: 'response',
+          //       child: Text(
+          //         'Add Response',
+          //         style: context.textTheme.titleSmall?.copyWith(
+          //           color: Colors.white,
+          //         ),
+          //       ),
+          //       onTap: () async {
+          //         showDialog(
+          //           barrierDismissible: false,
+          //           context: context,
+          //           builder: (context) => AddResponseDialogue(model: model),
+          //         ).then((v) async {
+          //           await context.read<SupportsTicketCubit>().getAllTickets();
+          //         });
+          //       },
+          //     ),
+          //   ],
+          //   offset: const Offset(0, 40),
+          //   icon: const Icon(
+          //     Icons.more_horiz,
+          //     color: AppColors.white,
+          //   ),
+          // );
+          return InkWell(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                        backgroundColor: Colors.transparent,
                         child: Container(
+                          width: 515,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: AppColors.grey1),
+                            color: AppColors.dialogBgColor,
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
                           padding: EdgeInsets.all(14.0),
-                          width: 500,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            spacing: 8.0,
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              Text(
+                                "Ticket Info",
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                // mainAxisAlignment:
+                                // MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    "Attachment Pictures",
-                                    style: context.textTheme.headlineSmall
-                                        ?.copyWith(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.bold,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "First Name",
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          model.firstName,
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: Colors.white,
+                                            // fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  OnClick(
-                                    onTap: () {
-                                      NavRouter.pop(context);
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                          100.0,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Last Name",
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                        border: Border.all(
-                                          color: Colors.white,
+                                        Text(
+                                          model.lastName,
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: Colors.white,
+                                            // fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                      child: Icon(
-                                        Icons.close,
-                                        size: 16.0,
-                                        color: AppColors.white,
-                                      ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 8.0),
-                              SingleChildScrollView(
-                                child: Column(
-                                  children: model.images.map((image) {
-                                    return _imageSection(
-                                      "http://202.166.170.246:4300/${image.image}",
-                                    );
-                                  }).toList(),
-                                ),
+                              Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Email",
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        model.email,
+                                        style: TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    );
-                  } else {
-                    DisplayUtils.showSnackBar(
-                      context,
-                      "No Image Attachments",
-                    );
-                  }
-                },
-              ),
-              PopupMenuItem(
-                value: 'response',
-                child: Text(
-                  'Add Response',
-                  style: context.textTheme.titleSmall?.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-                onTap: () async {
-                  showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (context) => AddResponseDialogue(model: model),
-                  ).then((v) async {
-                    await context.read<SupportsTicketCubit>().getAllTickets();
-                  });
-                },
-              ),
-            ],
-            offset: const Offset(0, 40),
-            icon: const Icon(
-              Icons.more_horiz,
-              color: AppColors.white,
+                      ));
+            },
+            child: Icon(
+              Icons.remove_red_eye_outlined,
+              color: Colors.white,
             ),
           );
         },
