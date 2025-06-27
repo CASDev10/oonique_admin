@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:oonique/constants/api_endpoints.dart';
 import 'package:oonique/modules/dashboard/view/banner/cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
-import 'package:oonique/modules/dashboard/view/banner/cubit/banner_ads_cubit.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/add_banner_input.dart';
 import 'package:oonique/modules/dashboard/view/banner/models/get_banners_response.dart';
 import 'package:oonique/ui/widgets/helper_function.dart';
@@ -13,6 +12,7 @@ import 'package:oonique/ui/widgets/picture_widget.dart';
 import 'package:oonique/ui/widgets/primary_button.dart';
 import 'package:oonique/utils/display/display_utils.dart';
 import 'package:oonique/utils/extensions/extended_context.dart';
+
 import '../../../../../config/routes/nav_router.dart';
 import '../../../../../constants/app_colors.dart';
 import '../../../../../core/di/service_locator.dart';
@@ -344,7 +344,7 @@ class _UpdateBannerDialogueState extends State<UpdateBannerDialogue> {
                                   title: titleController.text,
                                   subTitle: subTitleController.text,
                                   description: descriptionController.text,
-                                  bannerLink: bannerLinkController.text,
+                                  // bannerLink: bannerLinkController.text,
                                   displayOrder: displayNumberController.text,
                                   status: status.toString(),
                                   category: selectedCategory!,

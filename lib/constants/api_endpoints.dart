@@ -1,6 +1,6 @@
 class Endpoints {
   static const String login = 'auth/admin/login';
-  static const String imageBaseUrl = 'http://202.166.170.246:4300/';
+  static const String imageBaseUrl = 'http://142.93.236.128:4300/';
   static const String getAllBanners = 'banner';
   static const String support = 'support';
   static const String categories = 'products/get-filters';

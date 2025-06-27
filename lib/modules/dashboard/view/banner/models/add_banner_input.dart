@@ -2,22 +2,22 @@ import 'package:dio/dio.dart';
 
 class AddBannerInput {
   int? id;
-  String title;
-  String subTitle;
-  String description;
-  String bannerLink;
-  String category;
-  String displayOrder;
-  String status;
+  String? title;
+  String? subTitle;
+  String? description;
+  String? bannerLink;
+  String? category;
+  String? displayOrder;
+  String? status;
   MultipartFile? file;
   AddBannerInput({
-    required this.title,
-    required this.subTitle,
-    required this.category,
-    required this.description,
-    required this.bannerLink,
-    required this.displayOrder,
-    required this.status,
+    this.title,
+    this.subTitle,
+    this.category,
+    this.description,
+    this.bannerLink,
+    this.displayOrder,
+    this.status,
     this.file,
     this.id,
   });
@@ -32,35 +32,36 @@ class AddBannerInput {
     String? status,
     int? id,
     MultipartFile? file,
-  }) => AddBannerInput(
-    title: title ?? this.title,
-    file: file ?? this.file,
-    category: category ?? this.category,
-    subTitle: subTitle ?? this.subTitle,
-    description: description ?? this.description,
-    bannerLink: bannerLink ?? this.bannerLink,
-    displayOrder: displayOrder ?? this.displayOrder,
-    status: status ?? this.status,
-    id: id ?? this.id,
-  );
+  }) =>
+      AddBannerInput(
+        title: title ?? this.title,
+        file: file ?? this.file,
+        category: category ?? this.category,
+        subTitle: subTitle ?? this.subTitle,
+        description: description ?? this.description,
+        bannerLink: bannerLink ?? this.bannerLink,
+        displayOrder: displayOrder ?? this.displayOrder,
+        status: status ?? this.status,
+        id: id ?? this.id,
+      );
 
   factory AddBannerInput.fromJson(Map<String, dynamic> json) => AddBannerInput(
-    title: json["title"],
-    subTitle: json["sub_title"],
-    description: json["description"],
-    bannerLink: json["banner_link"],
-    displayOrder: json["display_order"],
-    category: json["category"],
-    status: json["status"],
-  );
+        title: json["title"],
+        subTitle: json["sub_title"],
+        description: json["description"],
+        bannerLink: json["banner_link"],
+        displayOrder: json["display_order"],
+        category: json["category"],
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "title": title,
-    "sub_title": subTitle,
-    "description": description,
-    "banner_link": bannerLink,
-    "display_order": displayOrder,
-    "status": status,
-    "category": category,
-  };
+        "title": title,
+        "sub_title": subTitle,
+        "description": description,
+        "banner_link": bannerLink,
+        "display_order": displayOrder,
+        "status": status,
+        "category": category,
+      };
 }

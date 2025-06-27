@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oonique/modules/dashboard/view/banner/widgets/update_banner_dialogue.dart';
 import 'package:oonique/utils/utils.dart';
 import 'package:pluto_grid/pluto_grid.dart';
+
 import '../../../../../config/routes/nav_router.dart';
 import '../../../../../constants/api_endpoints.dart';
 import '../../../../../constants/app_colors.dart';
 import '../cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import '../cubit/banner_ads_cubit.dart';
+import '../models/add_banner_input.dart';
 import '../models/get_banners_response.dart';
 
 class PaginatedBannersTable extends StatefulWidget {
@@ -229,13 +231,37 @@ class _PaginatedBannersTableState extends State<PaginatedBannersTable> {
                     context: context,
                     builder: (context) => UpdateBannerDialogue(
                       model: model,
-                      onSave: (input) {
-                        context
+                      onSave: (input) async {
+                        BannersModel? banner;
+                        try {
+                          banner = context
+                              .read<BannerAdsCubit>()
+                              .state
+                              .allBanners
+                              .firstWhere(
+                                (v) => v.displayOrder == input.displayOrder,
+                              );
+                        } catch (e) {
+                          print("No Banner with this id found");
+                        }
+                        await context
                             .read<AddUpdateBannerCubit>()
                             .addUpdateBanners(input)
                             .then((v) {
                           NavRouter.pop(context);
                         });
+                        if (banner != null) {
+                          AddBannerInput bannerUpdate = AddBannerInput(
+                              displayOrder: banner.displayOrder.toString(),
+                              category: banner.category,
+                              id: banner.id);
+                          await context
+                              .read<AddUpdateBannerCubit>()
+                              .addUpdateBanners(bannerUpdate)
+                              .then((v) {
+                            NavRouter.pop(context);
+                          });
+                        }
                       },
                     ),
                   ).then((v) {

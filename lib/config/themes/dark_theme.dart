@@ -124,27 +124,27 @@ ThemeData _getTheme() {
 
     /// ************************************** CardTheme **************************************
 
-    cardTheme: const CardTheme(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(6)),
-        side: BorderSide(
-          width: 1,
-          color: _divider,
-        ),
-      ),
-      color: _dark1,
-      surfaceTintColor: Colors.transparent,
-      margin: EdgeInsets.zero,
-    ),
+    // cardTheme: CardTheme(
+    //   elevation: 0,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.all(Radius.circular(6)),
+    //     side: BorderSide(
+    //       width: 1,
+    //       color: _divider,
+    //     ),
+    //   ),
+    //   color: _dark1,
+    //   surfaceTintColor: Colors.transparent,
+    //   margin: EdgeInsets.zero,
+    // ),
 
     /// ************************************** DialogTheme **************************************
-    dialogTheme: DialogTheme(
-      backgroundColor: _dark3,
-      surfaceTintColor: _dark3,
-
-      /// titleTextStyle: textTheme.titleLarge,
-    ),
+    // dialogTheme: DialogTheme(
+    //   backgroundColor: _dark3,
+    //   surfaceTintColor: _dark3,
+    //
+    //   /// titleTextStyle: textTheme.titleLarge,
+    // ),
 
     /// ************************************** DividerTheme **************************************
     dividerTheme: const DividerThemeData(

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:oonique/modules/dashboard/view/banner/models/add_banner_response.dart';
 import 'package:oonique/ui/widgets/primary_button.dart';
 import 'package:oonique/utils/heights_and_widths.dart';
 import 'package:oonique/utils/utils.dart';
+
 import '../../../../../config/routes/nav_router.dart';
 import '../../../../../constants/app_colors.dart';
 import '../../../../../core/di/service_locator.dart';
 import '../../../../../ui/widgets/loading_indicator.dart';
 import '../../../../../utils/display/display_utils.dart';
+import '../../../repo/repo.dart';
 import '../cubit/add_update_banner_cubit/add_update_banner_cubit.dart';
 import '../cubit/banner_ads_cubit.dart';
-import '../../../repo/repo.dart';
+import '../models/add_banner_input.dart';
+import '../models/get_banners_response.dart';
 import '../widgets/paginated_banner_table.dart';
 import '../widgets/update_banner_dialogue.dart';
 
@@ -23,7 +25,6 @@ class BannerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-       
         BlocProvider(
           create: (context) => AddUpdateBannerCubit(
             bannersRepository: sl<BannersRepository>(),
@@ -45,12 +46,12 @@ class BannerScreenView extends StatefulWidget {
 }
 
 class _BannerScreenViewState extends State<BannerScreenView> {
-
   @override
   void initState() {
-   context.read<BannerAdsCubit>().getAllBanners();
+    context.read<BannerAdsCubit>().getAllBanners();
     super.initState();
   }
+
   void showAddNewUserDialog(
     BuildContext context,
   ) {
@@ -58,13 +59,41 @@ class _BannerScreenViewState extends State<BannerScreenView> {
       barrierDismissible: false,
       context: context,
       builder: (context) => UpdateBannerDialogue(
-        onSave: (input) {
-          context
+        // onSave: (input) {
+        //   context
+        //       .read<AddUpdateBannerCubit>()
+        //       .addUpdateBanners(input)
+        //       .then((v) {
+        //     NavRouter.pop(context);
+        //   });
+        // },
+        onSave: (input) async {
+          BannersModel? banner;
+          try {
+            banner = context.read<BannerAdsCubit>().state.allBanners.firstWhere(
+                  (v) => v.displayOrder == input.displayOrder,
+                );
+          } catch (e) {
+            print("No Banner with this id found");
+          }
+          await context
               .read<AddUpdateBannerCubit>()
               .addUpdateBanners(input)
               .then((v) {
             NavRouter.pop(context);
           });
+          if (banner != null) {
+            AddBannerInput bannerUpdate = AddBannerInput(
+                category: banner.category,
+                displayOrder: banner.displayOrder.toString(),
+                id: banner.id);
+            await context
+                .read<AddUpdateBannerCubit>()
+                .addUpdateBanners(bannerUpdate)
+                .then((v) {
+              NavRouter.pop(context);
+            });
+          }
         },
       ),
     ).then((v) {
@@ -159,13 +188,10 @@ class _BannerScreenViewState extends State<BannerScreenView> {
                               .read<BannerAdsCubit>()
                               .deleteBanner(v)
                               .then((_) {
-                            Future.microtask(() {
-                              if (context.mounted) {
-                                context.read<BannerAdsCubit>().getAllBanners();
-                              }
-                            });
+                            state.allBanners
+                                .removeWhere((item) => item.id == v);
+                            context.read<BannerAdsCubit>().getAllBanners();
                           });
-                          ;
                         },
                         totalItems: state.totalItems,
                         onNext: (v) async {

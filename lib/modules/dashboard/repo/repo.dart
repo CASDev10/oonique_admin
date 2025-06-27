@@ -96,25 +96,80 @@ class BannersRepository {
   }
 
   Future<AddBannerResponse> addUpdateBanner(AddBannerInput input) async {
+    // try {
+    //   FormData toFormData() => FormData.fromMap({
+    //         "title": input.title,
+    //         "sub_title": input.subTitle,
+    //         "description": input.description,
+    //         "banner_link": input.bannerLink,
+    //         "display_order": input.displayOrder,
+    //         "status": input.status,
+    //         "category": input.category,
+    //         "image": input.file,
+    //       });
+    //   final token = await getToken();
+    //   var response = await _dioClient.post(
+    //     input.id != null
+    //         ? Endpoints.updateBanner(input.id!)
+    //         : Endpoints.getAllBanners,
+    //     data: toFormData(),
+    //     options: Options(headers: {'Authorization': token}),
+    //   );
+    //   AddBannerResponse addBannerResponse = await compute(
+    //     addBannerResponseFromJson,
+    //     response.data,
+    //   );
+    //   return addBannerResponse;
+    // } on DioException catch (e, stackTrace) {
+    //   _log.e(e, stackTrace: stackTrace);
+    //   throw ApiError.fromDioException(e);
+    // } on TypeError catch (e, stackTrace) {
+    //   _log.e(stackTrace);
+    //   throw ApiError(message: '$e', code: 0);
+    // } catch (e) {
+    //   _log.e(e);
+    //   throw ApiError(message: '$e', code: 0);
+    // }
+
     try {
-      FormData toFormData() => FormData.fromMap({
-            "title": input.title,
-            "sub_title": input.subTitle,
-            "description": input.description,
-            "banner_link": input.bannerLink,
-            "display_order": input.displayOrder,
-            "status": input.status,
-            "category": input.category,
-            "image": input.file,
-          });
+      final Map<String, dynamic> formMap = {
+        "category": input.category,
+      };
+
+      // Add banner_link only if it's not null
+      if (input.bannerLink != null) {
+        formMap["banner_link"] = input.bannerLink;
+      }
+      if (input.bannerLink != null) {
+        formMap["title"] = input.title;
+      }
+      if (input.bannerLink != null) {
+        formMap["sub_title"] = input.subTitle;
+      }
+      if (input.bannerLink != null) {
+        formMap["description"] = input.description;
+      }
+      if (input.bannerLink != null) {
+        formMap["display_order"] = input.displayOrder;
+      }
+      if (input.bannerLink != null) {
+        formMap["status"] = input.status;
+      }
+
+      if (input.bannerLink != null) {
+        formMap["image"] = input.file;
+      }
+
+      final formData = FormData.fromMap(formMap);
       final token = await getToken();
       var response = await _dioClient.post(
         input.id != null
             ? Endpoints.updateBanner(input.id!)
             : Endpoints.getAllBanners,
-        data: toFormData(),
+        data: formData,
         options: Options(headers: {'Authorization': token}),
       );
+
       AddBannerResponse addBannerResponse = await compute(
         addBannerResponseFromJson,
         response.data,

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:oonique/config/routes/nav_router.dart';
 import 'package:oonique/constants/app_colors.dart';
+import 'package:oonique/ui/widgets/primary_button.dart';
 import 'package:oonique/utils/utils.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 
+import '../cubits/support_cubits.dart';
 import '../models/all_support_response.dart';
+import 'add_response_dialogue.dart';
 
 class PaginatedTicketsTable extends StatefulWidget {
   PaginatedTicketsTable({
@@ -231,7 +236,7 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
           //                           );
           //                         }).toList(),
           //                       ),
-          //                     ),
+          //                     );
           //                   ],
           //                 ),
           //               ),
@@ -285,15 +290,18 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
                           ),
                           padding: EdgeInsets.all(14.0),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             spacing: 8.0,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
-                                "Ticket Info",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                              Center(
+                                child: Text(
+                                  "Ticket Info",
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                               Row(
@@ -352,30 +360,145 @@ class _PaginatedTicketsTableState extends State<PaginatedTicketsTable> {
                               ),
                               Row(
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Email",
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Email",
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        model.email,
-                                        style: TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                        Text(
+                                          model.email,
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "User Id",
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          model.userId.toString(),
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color: Colors.white,
+                                            // fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Subject",
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    model.subject,
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Message",
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    model.message,
+                                    style: TextStyle(
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              if (model.images.isNotEmpty) ...[
+                                Center(
+                                  child: Text(
+                                    "Attachment",
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Divider(
+                                  thickness: 0.3,
+                                ),
+                                SingleChildScrollView(
+                                  child: Row(
+                                    spacing: 12.0,
+                                    children: model.images.map((image) {
+                                      return Expanded(
+                                        child: _imageSection(
+                                          "http://202.166.170.246:4300/${image.image}",
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ],
+                              PrimaryButton(
+                                onPressed: () async {
+                                  NavRouter.pop(context);
+                                  showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) =>
+                                        AddResponseDialogue(model: model),
+                                  ).then((v) async {
+                                    await context
+                                        .read<SupportsTicketCubit>()
+                                        .getAllTickets();
+                                  });
+                                },
+                                title: "Add Response",
+                                hMargin: 0,
+                                height: 45.0,
+                                backgroundColor: Color(0xFFff5556),
+                                borderRadius: 12.0,
+                              )
                             ],
                           ),
                         ),

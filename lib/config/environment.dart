@@ -32,17 +32,18 @@ abstract class Environment {
 
 class LocalEnvironment extends Environment {
   LocalEnvironment()
-    : super(name: 'Local', baseUrl: 'http://202.166.170.246:4300/api/');
+      // : super(name: 'Local', baseUrl: 'http://202.166.170.246:4300/api/');
+      : super(name: 'Local', baseUrl: 'http://142.93.236.128:4300/api/');
 }
 
 // Create a development environment class.
 class DevEnvironment extends Environment {
   DevEnvironment()
-    : super(name: 'Dev', baseUrl: 'http://202.166.170.246:4300/api/');
+      : super(name: 'Dev', baseUrl: 'http://142.93.236.128:4300/api/');
 }
 
 // Create a production environment class.
 class ProdEnvironment extends Environment {
   ProdEnvironment()
-    : super(name: 'Prod', baseUrl: 'http://202.166.170.246:4300/api/');
+      : super(name: 'Prod', baseUrl: 'http://142.93.236.128:4300/api/');
 }
